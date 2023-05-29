@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Digikala</string>
+    <string name="Recycler_Items_ImageView">Product Image</string>
 </resources>
