@@ -7,93 +7,147 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00BCD4"
-        tools:context=".MainActivity">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.google.android.material.search.SearchBar
+            android:layout_height="match_parent"
+            >
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                app:layout_constraintBottom_toTopOf="@+id/nested_scroll"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-               />
-
-                <com.smarteist.autoimageslider.SliderView
-                    android:background="@drawable/slider_background"
-                    android:id="@+id/slider"
+                android:layout_height="wrap_content">
+                <com.google.android.material.search.SearchBar
+                    android:theme="@style/ThemeOverlay.Material3.Search"
+                    android:id="@+id/search_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    app:sliderAnimationDuration="600"
-                    app:sliderAutoCycleDirection="back_and_forth"
-                    app:sliderIndicatorAnimationDuration="600"
-                    app:sliderIndicatorEnabled="true"
-                    app:sliderIndicatorGravity="center_horizontal|bottom"
-                    app:sliderIndicatorMargin="15dp"
-                    app:sliderIndicatorOrientation="horizontal"
-                    app:sliderIndicatorPadding="3dp"
-                    app:sliderIndicatorRadius="2dp"
-                    app:sliderIndicatorSelectedColor="#FFF"
-                    app:sliderIndicatorUnselectedColor="#5A5A5A"
-                    app:sliderScrollTimeInSec="1"
-                    />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="@string/recycler_newest"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_height="wrap_content"
+                    android:hint="@string/search_hint" />
+            </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.search.SearchView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/recycler_items" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="@string/recycler_most_viewed"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
+                android:layout_height="match_parent"
+                android:hint="@string/search_hint">
+                <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+            </com.google.android.material.search.SearchView>
+            <androidx.core.widget.NestedScrollView
+                app:layout_constraintTop_toBottomOf="@+id/app_bar"
+                android:id="@+id/nested_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/recycler_items" />
+                android:layout_height="0dp"
+                android:background="#fff"
+                app:layout_behavior="@string/searchbar_scrolling_view_behavior"
+                tools:context=".MainActivity">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="@string/recycler_top_rated"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/recycler_items" />
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp"
+                        android:background="@drawable/slider_background"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorEnabled="true"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="#FFF"
+                        app:sliderIndicatorUnselectedColor="#5A5A5A"
+                        app:sliderScrollTimeInSec="1" />
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:background="#5C5B5B"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/tv_newest"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:layout_gravity="top"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:fontFamily="sans-serif-smallcaps"
+                                android:text="@string/recycler_newest"
+                                android:textColor="@color/white"
+                                android:textSize="20sp" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                app:layout_constraintTop_toBottomOf="@id/tv_newest"
+                                android:layout_gravity="bottom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:orientation="horizontal"
+                                android:padding="5dp"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:listitem="@layout/recycler_items" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="@string/recycler_most_viewed"
+                            android:textColor="@color/white"
+                            android:textSize="20sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="5dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/recycler_items" />
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="@string/recycler_top_rated"
+                            android:textColor="@color/white"
+                            android:textSize="20sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="5dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/recycler_items" />
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
