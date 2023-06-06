@@ -7,10 +7,10 @@
 
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#61312D"
+        android:background="#00BCD4"
         tools:context=".MainActivity">
 
         <LinearLayout
@@ -18,22 +18,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/slider"
+            <com.google.android.material.search.SearchBar
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:sliderAnimationDuration="600"
-                app:sliderAutoCycleDirection="back_and_forth"
-                app:sliderIndicatorAnimationDuration="600"
-                app:sliderIndicatorEnabled="true"
-                app:sliderIndicatorGravity="center_horizontal|bottom"
-                app:sliderIndicatorMargin="15dp"
-                app:sliderIndicatorOrientation="horizontal"
-                app:sliderIndicatorPadding="3dp"
-                app:sliderIndicatorRadius="2dp"
-                app:sliderIndicatorSelectedColor="#5A5A5A"
-                app:sliderIndicatorUnselectedColor="#FFF"
-                app:sliderScrollTimeInSec="1" />
+                android:layout_height="40dp"
+               />
+
+                <com.smarteist.autoimageslider.SliderView
+                    android:background="@drawable/slider_background"
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorEnabled="true"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="#FFF"
+                    app:sliderIndicatorUnselectedColor="#5A5A5A"
+                    app:sliderScrollTimeInSec="1"
+                    />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,5 +95,5 @@
                 tools:listitem="@layout/recycler_items" />
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>
