@@ -17,7 +17,7 @@ class SliderAdapter(private val imageUrl: ArrayList<String>) :
 
     override fun onCreateViewHolder(parent: ViewGroup?): SliderAdapter.SliderViewHolder {
         val inflate: View =
-            LayoutInflater.from(parent!!.context).inflate(R.layout.slider_item, parent)
+            LayoutInflater.from(parent!!.context).inflate(R.layout.slider_item, parent, false)
         return SliderViewHolder(inflate)
     }
 
