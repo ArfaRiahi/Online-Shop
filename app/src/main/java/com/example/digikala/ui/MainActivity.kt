@@ -1,9 +1,10 @@
-package com.example.digikala
+package com.example.digikala.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import com.example.digikala.R
 import com.example.digikala.databinding.ActivityMainBinding
 import com.example.digikala.ui.fragments.category.CategoryFragment
 import com.example.digikala.ui.fragments.main.MainFragment
