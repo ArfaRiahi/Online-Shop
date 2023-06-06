@@ -41,7 +41,7 @@
                 android:layout_height="0dp"
                 android:background="#fff"
                 app:layout_behavior="@string/searchbar_scrolling_view_behavior"
-                tools:context=".MainActivity">
+                tools:context=".ui.MainActivity">
 
                 <LinearLayout
                     android:layout_width="match_parent"
