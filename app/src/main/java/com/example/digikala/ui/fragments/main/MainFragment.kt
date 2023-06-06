@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.digikala.databinding.FragmentMainBinding
+import com.smarteist.autoimageslider.SliderView
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+
+    private lateinit var imageUrl: ArrayList<String>
+    private lateinit var sliderView: SliderView
+    private lateinit var sliderAdapter: SliderAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -17,6 +22,21 @@ class MainFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMainBinding.inflate(layoutInflater)
+        setUpSliderView()
         return binding.root
+    }
+
+    private fun setUpSliderView() {
+        sliderView = binding.slider
+        imageUrl = ArrayList()
+        imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Fdsa-self-paced-thumbnail.png&w=1920&q=75")
+        imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Fdata-science-live-thumbnail.png&w=1920&q=75")
+        imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Ffull-stack-node-thumbnail.png&w=1920&q=75")
+        sliderAdapter = SliderAdapter(imageUrl)
+        sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
+        sliderView.setSliderAdapter(sliderAdapter)
+        sliderView.scrollTimeInSec = 2
+        sliderView.isAutoCycle = true
+        sliderView.startAutoCycle()
     }
 }
