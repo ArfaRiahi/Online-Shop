@@ -2,6 +2,7 @@ package com.example.digikala
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.example.digikala.databinding.ActivityMainBinding
 import com.example.digikala.ui.fragments.category.CategoryFragment
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        transparentStatusBar()
         loadFragment(MainFragment())
 
         //bottom navigation setup
@@ -40,5 +42,9 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(binding.fragmentContainerView.id, fragment)
         transaction.commit()
+    }
+
+    private fun transparentStatusBar() {
+        WindowCompat.setDecorFitsSystemWindows(window, true)
     }
 }
