@@ -52,7 +52,6 @@
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
                         android:layout_height="280dp"
-                        android:background="@drawable/slider_background"
                         app:sliderAnimationDuration="600"
                         app:sliderAutoCycleDirection="back_and_forth"
                         app:sliderIndicatorAnimationDuration="600"
