@@ -8,20 +8,20 @@ import com.bumptech.glide.Glide
 import com.example.digikala.R
 import com.smarteist.autoimageslider.SliderViewAdapter
 
-class SliderAdapter(private val imageUrl: ArrayList<String>) :
-    SliderViewAdapter<SliderAdapter.SliderViewHolder>() {
+class SliderAdapterDashboard(private val imageUrl: ArrayList<String>) :
+    SliderViewAdapter<SliderAdapterDashboard.SliderViewHolder>() {
 
     override fun getCount(): Int {
         return imageUrl.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?): SliderAdapter.SliderViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?): SliderAdapterDashboard.SliderViewHolder {
         val inflate: View =
             LayoutInflater.from(parent!!.context).inflate(R.layout.slider_item, parent, false)
         return SliderViewHolder(inflate)
     }
 
-    override fun onBindViewHolder(viewHolder: SliderAdapter.SliderViewHolder?, position: Int) {
+    override fun onBindViewHolder(viewHolder: SliderAdapterDashboard.SliderViewHolder?, position: Int) {
         if (viewHolder != null) {
             Glide.with(viewHolder.itemView).load(imageUrl[position]).fitCenter()
                 .into(viewHolder.imageView)
