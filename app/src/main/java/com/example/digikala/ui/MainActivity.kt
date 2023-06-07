@@ -8,7 +8,9 @@ import com.example.digikala.R
 import com.example.digikala.databinding.ActivityMainBinding
 import com.example.digikala.ui.fragments.category.CategoryFragment
 import com.example.digikala.ui.fragments.main.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
