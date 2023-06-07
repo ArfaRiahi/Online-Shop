@@ -13,34 +13,37 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
+
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar"
-                app:layout_constraintBottom_toTopOf="@+id/nested_scroll"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/nested_scroll"
+                app:layout_constraintTop_toTopOf="parent">
+
                 <com.google.android.material.search.SearchBar
-                    android:theme="@style/ThemeOverlay.Material3.Search"
                     android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/search_hint" />
+                    android:hint="@string/search_hint"
+                    android:theme="@style/ThemeOverlay.Material3.Search" />
             </com.google.android.material.appbar.AppBarLayout>
+
             <com.google.android.material.search.SearchView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/search_hint">
                 <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
             </com.google.android.material.search.SearchView>
+
             <androidx.core.widget.NestedScrollView
-                app:layout_constraintTop_toBottomOf="@+id/app_bar"
                 android:id="@+id/nested_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="#fff"
                 app:layout_behavior="@string/searchbar_scrolling_view_behavior"
+                app:layout_constraintTop_toBottomOf="@+id/app_bar"
                 tools:context=".ui.MainActivity">
 
                 <LinearLayout
@@ -66,36 +69,38 @@
                         app:sliderScrollTimeInSec="1" />
 
                     <androidx.cardview.widget.CardView
-                        android:layout_margin="10dp"
-                        app:cardCornerRadius="20dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="20dp">
+
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:background="#5C5B5B"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:background="#5C5B5B">
+
                             <TextView
                                 android:id="@+id/tv_newest"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                android:layout_gravity="top"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="top"
                                 android:layout_margin="10dp"
                                 android:fontFamily="sans-serif-smallcaps"
                                 android:text="@string/recycler_newest"
                                 android:textColor="@color/white"
-                                android:textSize="20sp" />
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <androidx.recyclerview.widget.RecyclerView
-                                app:layout_constraintTop_toBottomOf="@id/tv_newest"
-                                android:layout_gravity="bottom"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
                                 android:layout_margin="5dp"
                                 android:orientation="horizontal"
                                 android:padding="5dp"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintTop_toBottomOf="@id/tv_newest"
                                 tools:listitem="@layout/recycler_items" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -105,6 +110,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -123,9 +129,11 @@
                             tools:listitem="@layout/recycler_items" />
 
                     </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
