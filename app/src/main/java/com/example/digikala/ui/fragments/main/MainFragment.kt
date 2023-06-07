@@ -14,7 +14,7 @@ class MainFragment : Fragment() {
 
     private lateinit var imageUrl: ArrayList<String>
     private lateinit var sliderView: SliderView
-    private lateinit var sliderAdapter: SliderAdapter
+    private lateinit var sliderAdapterDashboard: SliderAdapterDashboard
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,14 +27,14 @@ class MainFragment : Fragment() {
     }
 
     private fun setUpSliderView() {
-        sliderView = binding.slider
+        sliderView = binding.sliderDashboard
         imageUrl = ArrayList()
         imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Fdsa-self-paced-thumbnail.png&w=1920&q=75")
         imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Fdata-science-live-thumbnail.png&w=1920&q=75")
         imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Ffull-stack-node-thumbnail.png&w=1920&q=75")
-        sliderAdapter = SliderAdapter(imageUrl)
+        sliderAdapterDashboard = SliderAdapterDashboard(imageUrl)
         sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
-        sliderView.setSliderAdapter(sliderAdapter)
+        sliderView.setSliderAdapter(sliderAdapterDashboard)
         sliderView.scrollTimeInSec = 2
         sliderView.isAutoCycle = true
         sliderView.startAutoCycle()
