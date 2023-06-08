@@ -35,7 +35,7 @@ interface ProductsApiService {
         @Query("orderby") orderBy: String = "rating"
     ): ProductsResponse
 
-    //------------------------------------------------------------------------------------------------//
+    //getting ProductsCategories
     @GET("products/categories")
     suspend fun getProductsCategories(): CategoryResponse
 }
