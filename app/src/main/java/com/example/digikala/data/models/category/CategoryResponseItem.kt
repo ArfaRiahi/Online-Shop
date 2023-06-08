@@ -10,9 +10,9 @@ data class CategoryResponseItem(
     @SerializedName("display")
     val display: String?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int,
     @SerializedName("image")
-    val image: Image?,
+    val image: Image,
     @SerializedName("_links")
     val links: Links?,
     @SerializedName("menu_order")
