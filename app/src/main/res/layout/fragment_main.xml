@@ -116,7 +116,7 @@
                                 android:padding="5dp"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 app:layout_constraintTop_toBottomOf="@id/tv_newest"
-                                tools:listitem="@layout/recycler_items" />
+                                tools:listitem="@layout/recycler_items_dashboard" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -154,7 +154,7 @@
                                 android:padding="5dp"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 app:layout_constraintTop_toBottomOf="@id/tv_most_viewed"
-                                tools:listitem="@layout/recycler_items" />
+                                tools:listitem="@layout/recycler_items_dashboard" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -192,7 +192,7 @@
                                 android:padding="5dp"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 app:layout_constraintTop_toBottomOf="@id/tv_top_rated"
-                                tools:listitem="@layout/recycler_items" />
+                                tools:listitem="@layout/recycler_items_dashboard" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
