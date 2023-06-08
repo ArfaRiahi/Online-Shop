@@ -17,4 +17,5 @@
     <!-- details fragment-->
     <string name="details_name">Product Name</string>
     <string name="details_description">product Description</string>
+    <string name="details_price">products Price</string>
 </resources>
