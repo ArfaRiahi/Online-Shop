@@ -22,7 +22,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var sliderView: SliderView
     private lateinit var sliderAdapter: SliderAdapter
     private val viewModel: MainFragmentViewModel by viewModels()
-
     private lateinit var adapterNewest: MainRecyclersAdapter
     private lateinit var adapterMostVisited: MainRecyclersAdapter
     private lateinit var adapterTopRated: MainRecyclersAdapter
@@ -42,9 +41,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun setUpSliderView() {
         sliderView = binding.slider
         imageUrl = ArrayList()
-        imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Fdsa-self-paced-thumbnail.png&w=1920&q=75")
-        imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Fdata-science-live-thumbnail.png&w=1920&q=75")
-        imageUrl.add("https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Ffull-stack-node-thumbnail.png&w=1920&q=75")
+        imageUrl.add("https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/113792128.jpg")
+        imageUrl.add("https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/301185.jpg")
+        imageUrl.add("https://woocommerce.maktabsharif.ir/wp-content/uploads/2023/05/T_2_front-2.jpg")
         sliderAdapter = SliderAdapter(imageUrl)
         sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
         sliderView.setSliderAdapter(sliderAdapter)
