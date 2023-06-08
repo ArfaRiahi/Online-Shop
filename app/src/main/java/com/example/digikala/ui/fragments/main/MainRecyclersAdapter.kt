@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.digikala.data.models.products.ProductsResponseItem
-import com.example.digikala.databinding.RecyclerItemsBinding
+import com.example.digikala.databinding.RecyclerItemsDashboardBinding
 
 class MainRecyclersAdapter(
     private val onClick: (Int) -> Unit
@@ -33,7 +33,7 @@ class MainRecyclersAdapter(
         }
     }
 
-    inner class MyViewHolder(val binding: RecyclerItemsBinding) :
+    inner class MyViewHolder(val binding: RecyclerItemsDashboardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.apply {
@@ -51,8 +51,13 @@ class MainRecyclersAdapter(
         parent: ViewGroup,
         viewType: Int
     ): MainRecyclersAdapter.MyViewHolder {
+
         return MyViewHolder(
-            RecyclerItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RecyclerItemsDashboardBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
@@ -64,5 +69,10 @@ class MainRecyclersAdapter(
                 .load(item.images[0].src)
                 .into(binding.recyclerItemsIv)
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 1) 1
+        else 2
     }
 }
