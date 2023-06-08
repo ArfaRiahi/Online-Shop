@@ -17,6 +17,7 @@
             android:backgroundTint="?attr/colorSurfaceContainer">
 
             <com.google.android.material.appbar.AppBarLayout
+                android:backgroundTint="?attr/colorSurfaceContainer"
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,6 +25,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.search.SearchBar
+                    android:backgroundTint="@color/cardview_light_background"
                     android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
