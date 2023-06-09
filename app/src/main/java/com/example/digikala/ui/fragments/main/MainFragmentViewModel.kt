@@ -22,10 +22,14 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
     private val _topRatedProduct = MutableLiveData<ProductsResponse>()
     val topRatedProduct: LiveData<ProductsResponse> = _topRatedProduct
 
+    private val _sliderProduct = MutableLiveData<ProductsResponse>()
+    val sliderProduct: LiveData<ProductsResponse> = _sliderProduct
+
     init {
         getNewestProducts()
         getMostVisitedProducts()
         getTopRatedProducts()
+        getSliderProducts()
     }
 
     private fun getNewestProducts() {
@@ -43,6 +47,12 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
     private fun getTopRatedProducts() {
         viewModelScope.launch {
             _topRatedProduct.postValue(repository.getTopRatedProducts(1, 10))
+        }
+    }
+
+    private fun getSliderProducts() {
+        viewModelScope.launch {
+            _sliderProduct.postValue(repository.getSliderProducts())
         }
     }
 }

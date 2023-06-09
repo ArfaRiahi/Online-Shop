@@ -31,17 +31,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding = DataBindingUtil.bind(view)!!
         navController = Navigation.findNavController(view)
         setUi()
-        setUpSliderView()
         observer()
     }
 
 
     private fun setUpSliderView() {
-        sliderView = binding.slider
         imageUrl = ArrayList()
-        imageUrl.add("https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/113792128.jpg")
-        imageUrl.add("https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/301185.jpg")
-        imageUrl.add("https://woocommerce.maktabsharif.ir/wp-content/uploads/2023/05/T_2_front-2.jpg")
+        sliderView = binding.slider
         sliderAdapter = SliderAdapterDashboard(imageUrl)
         sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
         sliderView.setSliderAdapter(sliderAdapter)
@@ -54,6 +50,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         createNewestAdapter()
         createMostVisitedAdapter()
         createTopRatedAdapter()
+        setUpSliderView()
     }
 
     private fun createNewestAdapter() {
@@ -88,6 +85,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         viewModel.topRatedProduct.observe(viewLifecycleOwner) {
             adapterTopRated.submitList(it)
+        }
+        viewModel.sliderProduct.observe(viewLifecycleOwner) {
+
+            for (i in 0 until it.size) {
+                imageUrl.add(it[i].images[0].src.toString())
+                sliderAdapter.notifyDataSetChanged()
+            }
         }
     }
 }

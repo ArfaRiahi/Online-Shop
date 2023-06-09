@@ -26,4 +26,12 @@ class Repository @Inject constructor(private val appService: ProductsApiService)
     suspend fun getCategoryLists(): CategoryResponse {
         return appService.getProductsCategories()
     }
+
+    suspend fun getProductsList(productId: Int): ProductsResponse {
+        return appService.getProductsLists(productId)
+    }
+
+    suspend fun getSliderProducts(): ProductsResponse {
+        return appService.getSliderProducts()
+    }
 }

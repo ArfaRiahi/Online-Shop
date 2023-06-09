@@ -38,4 +38,16 @@ interface ProductsApiService {
     //getting ProductsCategories
     @GET("products/categories")
     suspend fun getProductsCategories(): CategoryResponse
+
+    //getting products from special category
+    @GET("products/")
+    suspend fun getProductsLists(
+        @Query("category") category: Int
+    ): ProductsResponse
+
+    //getting slider info
+    @GET("products/")
+    suspend fun getSliderProducts(
+        @Query("category") category: Int = 119
+    ) : ProductsResponse
 }
