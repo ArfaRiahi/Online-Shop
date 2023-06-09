@@ -34,28 +34,17 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.digikala.ui.fragments.details.DetailsFragment"
         android:label="DetailsFragment">
-        <action
-            android:id="@+id/action_detailsFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="details_item"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailsFragment_to_productsListFragment"
+            app:destination="@id/productsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.digikala.ui.fragments.category.CategoryFragment"
         android:label="CategoryFragment">
-        <action
-            android:id="@+id/action_categoryFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_categoryFragment_to_productsListFragment"
             app:destination="@id/productsListFragment"
@@ -63,6 +52,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/productsListFragment"
@@ -75,19 +67,8 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_productsListFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_productsListFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="productId"
+            app:argType="integer" />
     </fragment>
 </navigation>
