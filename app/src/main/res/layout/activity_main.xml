@@ -8,9 +8,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background= "?attr/colorSurfaceContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorSurfaceContainer"
         tools:context=".ui.MainActivity">
 
         <com.google.android.material.card.MaterialCardView
@@ -27,23 +27,23 @@
             tools:targetApi="s">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:background="?attr/colorSurfaceContainer"
                 android:id="@+id/bottomNavigationView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
+                android:background="?attr/colorSurfaceContainer"
                 app:menu="@menu/dashboard_bottom_nav" />
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
-            android:background="?attr/colorSurfaceContainer"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="1dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="1dp"
+            android:background="?attr/colorSurfaceContainer"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigationViewCard"
             app:layout_constraintEnd_toEndOf="parent"
