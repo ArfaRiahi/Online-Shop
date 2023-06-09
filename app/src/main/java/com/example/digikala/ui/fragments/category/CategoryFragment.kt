@@ -1,7 +1,6 @@
 package com.example.digikala.ui.fragments.category
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -19,6 +18,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     private lateinit var navController: NavController
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var categoryAdapter: CategoryFragmentRecyclerAdapter
+    private var id = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,13 +27,17 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         navController = findNavController()
         setUi()
         observer()
-
     }
 
     private fun setUi() {
         viewModel.getCategoryList()
-        categoryAdapter = CategoryFragmentRecyclerAdapter{
-
+        categoryAdapter = CategoryFragmentRecyclerAdapter {
+            id = categoryAdapter.currentList[it].id
+            navController.navigate(
+                CategoryFragmentDirections.actionCategoryFragmentToProductsListFragment(
+                    id
+                )
+            )
         }
         binding.recyclerCategory.adapter = categoryAdapter
     }
