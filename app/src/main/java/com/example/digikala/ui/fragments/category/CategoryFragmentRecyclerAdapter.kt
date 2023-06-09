@@ -1,7 +1,5 @@
 package com.example.digikala.ui.fragments.category
 
-import android.content.ContentValues
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,10 +9,10 @@ import com.bumptech.glide.Glide
 import com.example.digikala.data.models.category.CategoryResponseItem
 import com.example.digikala.databinding.RecyclerItemCategoryBinding
 
-
 class CategoryFragmentRecyclerAdapter(
     private val onClick: (Int) -> Unit
 ) : ListAdapter<CategoryResponseItem, CategoryFragmentRecyclerAdapter.MyViewHolder>(diffUtil) {
+
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<CategoryResponseItem>() {
             override fun areItemsTheSame(
@@ -38,11 +36,7 @@ class CategoryFragmentRecyclerAdapter(
         init {
             binding.root.apply {
                 setOnClickListener {
-                    onClick(getItem(adapterPosition).id)
-                    Log.e(
-                        ContentValues.TAG,
-                        "absoluteAdapterPosition: ${getItem(adapterPosition).id}"
-                    )
+                    onClick(adapterPosition)
                 }
             }
         }
@@ -64,7 +58,6 @@ class CategoryFragmentRecyclerAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item: CategoryResponseItem = getItem(position)
         holder.apply {
-            Log.e("TAG", "onBindViewHolder: " + item.name.toString())
             binding.titleCategory.text = item.name
             Glide.with(binding.root)
                 .load(item.image.src)
