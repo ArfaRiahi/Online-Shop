@@ -22,15 +22,14 @@
             app:sliderIndicatorAnimationDuration="600"
             app:sliderIndicatorEnabled="true"
             app:sliderIndicatorGravity="center_horizontal|bottom"
-            app:sliderIndicatorMargin="15dp"
             app:sliderIndicatorOrientation="horizontal"
-            app:sliderIndicatorPadding="3dp"
             app:sliderIndicatorRadius="2dp"
             app:sliderIndicatorSelectedColor="#FFF"
             app:sliderIndicatorUnselectedColor="#5A5A5A"
             app:sliderScrollTimeInSec="1" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/tv_details_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +40,8 @@
             app:layout_constraintTop_toBottomOf="@id/slider_detail" />
 
         <TextView
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:id="@+id/tv_details_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,9 +52,11 @@
             app:layout_constraintTop_toBottomOf="@id/tv_details_price" />
 
         <TextView
-            android:gravity="end"
+            android:gravity="right"
+            app:layout_constraintEnd_toEndOf="@id/tv_details_name"
             android:id="@+id/tv_details_des"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
