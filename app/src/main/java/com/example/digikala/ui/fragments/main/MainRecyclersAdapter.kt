@@ -1,7 +1,5 @@
 package com.example.digikala.ui.fragments.main
 
-import android.content.ContentValues
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -39,9 +37,6 @@ class MainRecyclersAdapter(
             binding.root.apply {
                 setOnClickListener {
                     onClick(getItem(adapterPosition).id)
-                    Log.e(
-                        ContentValues.TAG, "absoluteAdapterPosition: ${getItem(adapterPosition).id}"
-                    )
                 }
             }
         }
