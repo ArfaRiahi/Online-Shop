@@ -7,13 +7,24 @@
 
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/product_list_recycler"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:context=".ui.fragments.pruductsList.ProductsListFragment">
+        android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <ProgressBar
+            android:id="@+id/progress_product_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:indeterminateTint="?attr/colorSurfaceContainer" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:context=".ui.fragments.productsList.ProductsListFragment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

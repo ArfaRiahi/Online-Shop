@@ -1,7 +1,9 @@
-package com.example.digikala.ui.fragments.pruductsList
+package com.example.digikala.ui.fragments.productsList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -58,7 +60,8 @@ class ProductListFragmentRecyclerAdapter(
         val item: ProductsResponseItem = getItem(position)
         holder.apply {
             binding.productListTvTitle.text = item.name
-            binding.productListTvDes.text = item.description
+            binding.productListTvDes.text =
+                HtmlCompat.fromHtml(item.description!!, FROM_HTML_MODE_COMPACT)
             binding.productListTvPrice.text = item.price
             Glide.with(binding.root)
                 .load(item.images[0].src)

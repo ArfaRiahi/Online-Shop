@@ -1,4 +1,4 @@
-package com.example.digikala.ui.fragments.pruductsList
+package com.example.digikala.ui.fragments.productsList
 
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentProductsListBinding
+import com.example.digikala.util.Resources
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,8 +44,33 @@ class ProductsListFragment : Fragment(R.layout.fragment_products_list) {
 
     private fun observer() {
         viewModel.getCProductList(args.productId)
-        viewModel.productsList.observe(viewLifecycleOwner) {
-            productsAdapter.submitList(it)
+        viewModel.productsList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resources.Success -> {
+                    hideProgressBar()
+                    productsAdapter.submitList(response.data)
+
+                }
+
+                is Resources.Error -> {
+                    hideProgressBar()
+                    response.message?.let {
+
+                    }
+                }
+
+                is Resources.Loading -> {
+                    showProgressBar()
+                }
+            }
         }
+    }
+
+    private fun hideProgressBar() {
+        binding.progressProductList.visibility = View.INVISIBLE
+    }
+
+    private fun showProgressBar() {
+        binding.progressProductList.visibility = View.VISIBLE
     }
 }
