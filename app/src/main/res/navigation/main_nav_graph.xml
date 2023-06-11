@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/productsListFragment"
-        android:name="com.example.digikala.ui.fragments.pruductsList.ProductsListFragment"
+        android:name="com.example.digikala.ui.fragments.productsList.ProductsListFragment"
         android:label="ProductsListFragment">
         <action
             android:id="@+id/action_productsListFragment_to_detailsFragment"
