@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentCategoryBinding
+import com.example.digikala.util.Resources
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,8 +44,35 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     }
 
     private fun observer() {
-        viewModel.categoryList.observe(viewLifecycleOwner) {
-            categoryAdapter.submitList(it)
+        viewModel.categoryList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resources.Success -> {
+                    hideProgressBar(binding.progressCategory)
+                    response.data?.let {
+                        categoryAdapter.submitList(it)
+                    }
+                }
+
+                is Resources.Error -> {
+                    hideProgressBar(binding.progressCategory)
+                    response.message?.let {
+
+                    }
+                }
+
+                is Resources.Loading -> {
+                    showProgressBar(binding.progressCategory)
+                }
+            }
+
         }
     }
+}
+
+private fun showProgressBar(view: View) {
+    view.visibility = View.VISIBLE
+}
+
+private fun hideProgressBar(view: View) {
+    view.visibility = View.INVISIBLE
 }
