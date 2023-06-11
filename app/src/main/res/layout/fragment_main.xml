@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/colorSurfaceContainer"
+            android:layoutDirection="rtl"
             app:layout_constraintBottom_toTopOf="@+id/nested_scroll"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -27,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/cardview_light_background"
                 android:hint="@string/search_hint"
+                android:textDirection="rtl"
                 android:theme="@style/ThemeOverlay.Material3.Search" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -75,15 +77,12 @@
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
                         android:layout_height="280dp"
-                        android:elevation="3dp"
                         app:sliderAnimationDuration="600"
                         app:sliderAutoCycleDirection="back_and_forth"
                         app:sliderIndicatorAnimationDuration="600"
                         app:sliderIndicatorEnabled="true"
                         app:sliderIndicatorGravity="center_horizontal|bottom"
-                        app:sliderIndicatorMargin="15dp"
                         app:sliderIndicatorOrientation="horizontal"
-                        app:sliderIndicatorPadding="3dp"
                         app:sliderIndicatorRadius="2dp"
                         app:sliderIndicatorSelectedColor="#FFF"
                         app:sliderIndicatorUnselectedColor="#5A5A5A"
@@ -114,7 +113,7 @@
                             android:text="@string/recycler_newest"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -163,7 +162,7 @@
                             android:text="@string/recycler_most_viewed"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -209,7 +208,7 @@
                             android:text="@string/recycler_top_rated"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView

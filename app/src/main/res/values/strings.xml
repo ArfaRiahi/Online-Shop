@@ -4,18 +4,18 @@
 
     <!-- Dashboard -->
     <!-- Dashboard Recyclers Titles -->
-    <string name="recycler_newest">Newest products</string>
-    <string name="recycler_most_viewed">Most Viewed products</string>
-    <string name="recycler_top_rated">Top Rated products</string>
+    <string name="recycler_newest">جدیدترین محصولات</string>
+    <string name="recycler_most_viewed">پربازدید ترین محصولات</string>
+    <string name="recycler_top_rated">بیشترین امتیاز</string>
 
     <!-- Dashboard Bottom NavigationView Titles -->
-    <string name="menu_home">Home</string>
-    <string name="menu_categories">Category</string>
+    <string name="menu_home">خانه</string>
+    <string name="menu_categories">دسته‌بندی</string>
 
-    <string name="search_hint">Search here…</string>
+    <string name="search_hint">جست‌وجو در فروشگاه…</string>
 
     <!-- details fragment-->
-    <string name="details_name">Product Name</string>
-    <string name="details_description">product Description</string>
-    <string name="details_price">products Price</string>
+    <string name="details_name">نام محصول</string>
+    <string name="details_description">توضیحات محصول</string>
+    <string name="details_price">قیمت محصول</string>
 </resources>

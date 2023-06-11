@@ -60,9 +60,8 @@ class ProductListFragmentRecyclerAdapter(
         val item: ProductsResponseItem = getItem(position)
         holder.apply {
             binding.productListTvTitle.text = item.name
-            binding.productListTvDes.text =
-                HtmlCompat.fromHtml(item.description!!, FROM_HTML_MODE_COMPACT)
-            binding.productListTvPrice.text = item.price
+            binding.productListTvDes.text = HtmlCompat.fromHtml(item.description!!, FROM_HTML_MODE_COMPACT)
+            binding.productListTvPrice.text = " تومان "+item.price
             Glide.with(binding.root)
                 .load(item.images[0].src)
                 .into(binding.productListImage)
