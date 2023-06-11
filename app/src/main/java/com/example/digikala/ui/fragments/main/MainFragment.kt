@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentMainBinding
+import com.example.digikala.util.Resources
 import com.smarteist.autoimageslider.SliderView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,23 +76,104 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun observer() {
-        viewModel.newestProduct.observe(viewLifecycleOwner) {
-            adapterNewest.submitList(it)
+        viewModel.newestProduct.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resources.Success -> {
+                    hideProgressBar(binding.progressRecyclerNewest)
+                    response.data?.let {
+                        adapterNewest.submitList(it)
+                    }
+                }
+
+                is Resources.Error -> {
+                    hideProgressBar(binding.progressRecyclerNewest)
+                    response.message?.let {
+
+                    }
+                }
+
+                is Resources.Loading -> {
+                    showProgressBar(binding.progressRecyclerNewest)
+                }
+            }
+
         }
 
-        viewModel.mostVisitedProduct.observe(viewLifecycleOwner) {
-            adapterMostVisited.submitList(it)
+        viewModel.mostVisitedProduct.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resources.Success -> {
+                    hideProgressBar(binding.progressRecyclerMostViewed)
+                    response.data?.let {
+                        adapterMostVisited.submitList(it)
+                    }
+                }
+
+                is Resources.Error -> {
+                    hideProgressBar(binding.progressRecyclerMostViewed)
+                    response.message?.let {
+
+                    }
+                }
+
+                is Resources.Loading -> {
+                    showProgressBar(binding.progressRecyclerMostViewed)
+                }
+            }
         }
 
-        viewModel.topRatedProduct.observe(viewLifecycleOwner) {
-            adapterTopRated.submitList(it)
-        }
-        viewModel.sliderProduct.observe(viewLifecycleOwner) {
+        viewModel.topRatedProduct.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resources.Success -> {
+                    hideProgressBar(binding.progressRecyclerTopRated)
+                    response.data?.let {
+                        adapterTopRated.submitList(it)
+                    }
+                }
 
-            for (i in 0 until it.size) {
-                imageUrl.add(it[i].images[0].src.toString())
-                sliderAdapter.notifyDataSetChanged()
+                is Resources.Error -> {
+                    hideProgressBar(binding.progressRecyclerTopRated)
+                    response.message?.let {
+
+                    }
+                }
+
+                is Resources.Loading -> {
+                    showProgressBar(binding.progressRecyclerTopRated)
+                }
+            }
+        }
+
+        viewModel.sliderProduct.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resources.Success -> {
+                    hideProgressBar(binding.progressSliderDashboard)
+                    response.data?.let {
+                        for (i in 0 until it.size) {
+                            imageUrl.add(it[i].images[0].src.toString())
+                            sliderAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+
+                is Resources.Error -> {
+                    hideProgressBar(binding.progressSliderDashboard)
+                    response.message?.let {
+
+                    }
+                }
+
+                is Resources.Loading -> {
+                    showProgressBar(binding.progressSliderDashboard)
+                }
             }
         }
     }
+}
+
+private fun hideProgressBar(view: View) {
+    view.visibility = View.INVISIBLE
+}
+
+private fun showProgressBar(view: View) {
+    view.visibility = View.VISIBLE
 }
