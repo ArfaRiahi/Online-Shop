@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentDetailsBinding
+import com.example.digikala.util.Resources
 import com.smarteist.autoimageslider.SliderView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,20 +38,44 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         val imagesUrl = ArrayList<String>()
         viewModel.getIdItemsProducts(args.detailsItem)
         viewModel.itemID.observe(viewLifecycleOwner) {
-            with(binding) {
-                tvDetailsName.text = it[0].name
-                tvDetailsPrice.text = " تومان " + it[0].price
-                tvDetailsDes.text =
-                    HtmlCompat.fromHtml(it[0].description.toString(), FROM_HTML_MODE_COMPACT)
-                val imagesNumber = it[0].images.size
-                if (imagesNumber != 0) {
-                    for (i in 0 until imagesNumber) {
-                        imagesUrl.add(it[0].images[i].src.toString())
+            viewModel.itemID.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resources.Success -> {
+                        //   hideProgressBar()
+                        response.data?.let {
+                            with(binding) {
+                                tvDetailsName.text = it[0].name
+                                tvDetailsPrice.text = " تومان " + it[0].price
+                                tvDetailsDes.text =
+                                    HtmlCompat.fromHtml(
+                                        it[0].description.toString(),
+                                        FROM_HTML_MODE_COMPACT
+                                    )
+                                val imagesNumber = it[0].images.size
+                                if (imagesNumber != 0) {
+                                    for (i in 0 until imagesNumber) {
+                                        imagesUrl.add(it[0].images[i].src.toString())
+                                    }
+                                    sliderView = binding.sliderDetail
+                                    sliderAdapter = SliderAdapterDetails(imagesUrl)
+                                    sliderView.setSliderAdapter(sliderAdapter)
+                                }
+                            }
+                        }
                     }
-                    sliderView = binding.sliderDetail
-                    sliderAdapter = SliderAdapterDetails(imagesUrl)
-                    sliderView.setSliderAdapter(sliderAdapter)
+
+                    is Resources.Error -> {
+                        //   hideProgressBar()
+                        response.message?.let {
+
+                        }
+                    }
+
+                    is Resources.Loading -> {
+                        //      showProgressBar()
+                    }
                 }
+
             }
         }
     }
