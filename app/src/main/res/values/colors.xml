@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- search bar colors-->
+    <color name="searchbar_text_color">@color/black</color>
+    <color name="searchbar_hint_color">@color/cardview_dark_background</color>
 </resources>
