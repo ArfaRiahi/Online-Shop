@@ -2,6 +2,7 @@ package com.example.digikala.ui.fragments.main
 
 import android.os.Bundle
 import android.view.View
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,6 +13,10 @@ import com.example.digikala.databinding.FragmentMainBinding
 import com.example.digikala.util.Resources
 import com.smarteist.autoimageslider.SliderView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -24,7 +29,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var adapterNewest: MainRecyclersAdapter
     private lateinit var adapterMostVisited: MainRecyclersAdapter
     private lateinit var adapterTopRated: MainRecyclersAdapter
+    private lateinit var adapterSearch: RecyclerSearchAdapter
     private lateinit var navController: NavController
+    private lateinit var sortType: String
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,6 +40,53 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         navController = Navigation.findNavController(view)
         setUi()
         observer()
+
+
+        var job: Job? = null
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                job?.cancel()
+                job = MainScope().launch {
+                    delay(500L)
+                    this.let { editable ->
+                        if (newText.toString().isNotEmpty()) {
+                            sortType =
+                                getSearchSort(binding.dashboardRadioGroup.checkedRadioButtonId)
+                            if (sortType == "d") {
+                                viewModel.getSearchProductPrice(newText.toString())
+                            } else {
+                                viewModel.getSearchProduct(newText.toString(), sortType)
+                            }
+                            binding.dashboardRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+                                viewModel.setSearchesSort(getSearchSort(checkedId))
+                                sortType =
+                                    getSearchSort(binding.dashboardRadioGroup.checkedRadioButtonId)
+                                if (sortType == "d") {
+                                    viewModel.getSearchProductPrice(newText.toString())
+                                } else {
+                                    viewModel.getSearchProduct(
+                                        newText.toString(),
+                                        viewModel.searchedSort.value.toString()
+                                    )
+                                }
+                            }
+                        } else if (newText.toString().isEmpty()) {
+                            job?.cancel()
+                            binding.recyclerSearchResult.visibility = View.GONE
+                            binding.dashboardRadioGroup.visibility = View.GONE
+                        }
+                    }
+                }
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return false
+            }
+
+        })
     }
 
 
@@ -51,7 +105,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         createNewestAdapter()
         createMostVisitedAdapter()
         createTopRatedAdapter()
+        createSearchAdapter()
         setUpSliderView()
+    }
+
+    private fun createSearchAdapter() {
+        adapterSearch = RecyclerSearchAdapter(onClick = {
+
+        })
+        binding.recyclerSearchResult.adapter = adapterSearch
     }
 
     private fun createNewestAdapter() {
@@ -76,6 +138,47 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun observer() {
+        viewModel.searchedProductPrice.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resources.Success -> {
+                    response.data?.let {
+                        binding.progressSearch.visibility = View.INVISIBLE
+                        binding.categorySearch.visibility = View.VISIBLE
+                        binding.recyclerSearchResult.visibility = View.VISIBLE
+                        adapterSearch.submitList(it)
+                    }
+                }
+
+                is Resources.Error -> {
+
+                }
+
+                is Resources.Loading -> {
+                    binding.progressSearch.visibility = View.VISIBLE
+                }
+            }
+        }
+        viewModel.searchedProduct.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resources.Success -> {
+                    response.data?.let {
+                        binding.progressSearch.visibility = View.INVISIBLE
+                        binding.categorySearch.visibility = View.VISIBLE
+                        binding.recyclerSearchResult.visibility = View.VISIBLE
+                        adapterSearch.submitList(it)
+                    }
+                }
+
+                is Resources.Error -> {
+
+                }
+
+                is Resources.Loading -> {
+                    binding.progressSearch.visibility = View.VISIBLE
+                }
+            }
+
+        }
         viewModel.newestProduct.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resources.Success -> {
@@ -98,7 +201,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
 
         }
-
         viewModel.mostVisitedProduct.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resources.Success -> {
@@ -120,7 +222,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
             }
         }
-
         viewModel.topRatedProduct.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resources.Success -> {
@@ -142,7 +243,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
             }
         }
-
         viewModel.sliderProduct.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resources.Success -> {
@@ -176,4 +276,14 @@ private fun hideProgressBar(view: View) {
 
 private fun showProgressBar(view: View) {
     view.visibility = View.VISIBLE
+}
+
+private fun getSearchSort(id: Int): String {
+    return when (id) {
+        R.id.radio_newest -> "date"
+        R.id.radio_top_sell -> "popularity"
+        R.id.radio_price_asc -> "price"
+        R.id.radio_price_des -> "d"
+        else -> ""
+    }
 }
