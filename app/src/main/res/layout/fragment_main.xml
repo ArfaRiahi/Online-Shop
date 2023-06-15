@@ -237,10 +237,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
-            android:background="?attr/colorSurfaceContainer"
             android:id="@+id/category_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorSurfaceContainer"
             android:orientation="horizontal"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/app_bar">
@@ -252,29 +252,29 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:checked="true"
                     android:id="@+id/radio_top_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="پر فروش ترین ها" />
+                    android:checked="true"
+                    android:text="@string/radio_top_seller" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_price_asc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="قیمت صعودی" />
+                    android:text="@string/radio_price_asc" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_price_des"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="قیمت نزولی" />
+                    android:text="@string/radio_price_desc" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_newest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="حدیدترین ها" />
+                    android:text="@string/radio_newest" />
             </RadioGroup>
         </LinearLayout>
 

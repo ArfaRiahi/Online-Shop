@@ -18,4 +18,8 @@
     <string name="details_name">نام محصول</string>
     <string name="details_description">توضیحات محصول</string>
     <string name="details_price">قیمت محصول</string>
+    <string name="radio_top_seller">پر فروش ترین ها</string>
+    <string name="radio_price_asc">قیمت صعودی</string>
+    <string name="radio_price_desc">قیمت نزولی</string>
+    <string name="radio_newest">حدیدترین ها</string>
 </resources>
