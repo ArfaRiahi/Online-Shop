@@ -35,4 +35,11 @@ class Repository @Inject constructor(private val appService: ProductsApiService)
     suspend fun getSliderProducts(): Response<ProductsResponse> {
         return appService.getSliderProducts()
     }
+
+    suspend fun getSearchedProduct(search: String, orderBy: String): Response<ProductsResponse> {
+        return appService.getAllSearchProduct(search, orderBy)
+    }
+    suspend fun getSearchedProductPrice(search: String): Response<ProductsResponse> {
+        return appService.getAllSearchProductPrice(search)
+    }
 }
