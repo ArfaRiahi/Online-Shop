@@ -51,4 +51,16 @@ interface ProductsApiService {
     suspend fun getSliderProducts(
         @Query("category") category: Int = 119
     ): Response<ProductsResponse>
+
+    //search product general
+    @GET("products")
+    suspend fun getAllSearchProduct(
+        @Query("search") search: String,
+        @Query("orderby") orderBy: String
+    ): Response<ProductsResponse>
+
+    @GET("products")
+    suspend fun getAllSearchProductPrice(
+        @Query("search") search: String,
+    ): Response<ProductsResponse>
 }
