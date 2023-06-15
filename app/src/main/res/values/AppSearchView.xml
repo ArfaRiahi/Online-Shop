@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColor">@color/searchbar_text_color</item>
+        <item name="android:textColorHint">@color/searchbar_hint_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:editTextColor">@color/searchbar_text_color</item>
+    </style>
+</resources>
