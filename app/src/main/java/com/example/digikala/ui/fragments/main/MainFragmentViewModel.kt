@@ -27,9 +27,20 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
     private val _sliderProduct = MutableLiveData<Resources<ProductsResponse>>()
     val sliderProduct: LiveData<Resources<ProductsResponse>> = _sliderProduct
 
+    private val _searchedProduct = MutableLiveData<Resources<ProductsResponse>>()
+    val searchedProduct: LiveData<Resources<ProductsResponse>> = _searchedProduct
+
+    private val _searchedProductPrice = MutableLiveData<Resources<ProductsResponse>>()
+    val searchedProductPrice: LiveData<Resources<ProductsResponse>> = _searchedProductPrice
+
+    private val _searchedSort = MutableLiveData<String>()
+    val searchedSort: LiveData<String> = _searchedSort
+
+
     val newestProductsPage = 1
     val mostViewedPage = 1
     val topRatedPage = 1
+    val searchedProductPage = 1
 
     init {
         getNewestProducts()
@@ -38,6 +49,9 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
         getSliderProducts()
     }
 
+    fun setSearchesSort(sortType : String){
+        _searchedSort.value = sortType
+    }
     private fun getNewestProducts() {
         viewModelScope.launch {
             _newestProduct.postValue(Resources.Loading())
@@ -70,6 +84,22 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
         }
     }
 
+    fun getSearchProduct(searchQuery: String,orderBy: String) {
+        viewModelScope.launch {
+            _searchedProduct.postValue(Resources.Loading())
+            val response = repository.getSearchedProduct(searchQuery,orderBy)
+            _searchedProduct.postValue(handleSearchResponse(response))
+        }
+    }
+
+    fun getSearchProductPrice(searchQuery: String){
+        viewModelScope.launch {
+            _searchedProductPrice.postValue(Resources.Loading())
+            val response = repository.getSearchedProductPrice(searchQuery)
+            _searchedProductPrice.postValue(handleSearchResponse(response))
+        }
+    }
+
     private fun handleProductResponse(response: Response<ProductsResponse>): Resources<ProductsResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
@@ -79,4 +109,12 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
         return Resources.Error(response.message())
     }
 
+    private fun handleSearchResponse(response: Response<ProductsResponse>): Resources<ProductsResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resources.Success(it)
+            }
+        }
+        return Resources.Error(response.message())
+    }
 }
