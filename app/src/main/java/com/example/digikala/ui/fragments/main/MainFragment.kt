@@ -33,15 +33,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var navController: NavController
     private lateinit var sortType: String
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
-        navController = Navigation.findNavController(view)
-        setUi()
         observer()
-
-
+        setUi()
+        navController = Navigation.findNavController(view)
         var job: Job? = null
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -49,8 +46,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 job?.cancel()
                 job = MainScope().launch {
                     delay(500L)
-                    this.let { editable ->
+                    this.let {
                         if (newText.toString().isNotEmpty()) {
+                            binding.recyclerSearchResult.visibility = View.VISIBLE
+                            binding.dashboardRadioGroup.visibility = View.VISIBLE
                             sortType =
                                 getSearchSort(binding.dashboardRadioGroup.checkedRadioButtonId)
                             if (sortType == "d") {
@@ -58,7 +57,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                             } else {
                                 viewModel.getSearchProduct(newText.toString(), sortType)
                             }
-                            binding.dashboardRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+                            binding.dashboardRadioGroup.setOnCheckedChangeListener { _, checkedId ->
                                 viewModel.setSearchesSort(getSearchSort(checkedId))
                                 sortType =
                                     getSearchSort(binding.dashboardRadioGroup.checkedRadioButtonId)
@@ -89,7 +88,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
-
     private fun setUpSliderView() {
         imageUrl = ArrayList()
         sliderView = binding.slider
@@ -111,7 +109,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun createSearchAdapter() {
         adapterSearch = RecyclerSearchAdapter(onClick = {
-
+            navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
         })
         binding.recyclerSearchResult.adapter = adapterSearch
     }
