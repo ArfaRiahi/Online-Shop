@@ -63,6 +63,5 @@ class NetworkConnection(private val context: Context) : LiveData<Boolean>() {
         override fun onReceive(context: Context?, intent: Intent?) {
             updateNetworkConnection()
         }
-
     }
 }
