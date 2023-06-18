@@ -32,6 +32,11 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         binding.lifecycleOwner = viewLifecycleOwner
         navController = findNavController()
         setUi()
+
+        binding.btnAddCart.setOnClickListener{
+            val id = args.detailsItem
+            navController.navigate(DetailsFragmentDirections.actionDetailsFragmentToCartFragment(id))
+        }
     }
 
     private fun setUi() {
