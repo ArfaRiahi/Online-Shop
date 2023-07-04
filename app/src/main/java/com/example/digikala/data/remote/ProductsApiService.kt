@@ -49,7 +49,9 @@ interface ProductsApiService {
     //getting slider info
     @GET("products/")
     suspend fun getSliderProducts(
-        @Query("category") category: Int = 119
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 15,
+        @Query("category") category: String = "119"
     ): Response<ProductsResponse>
 
     //search product general
