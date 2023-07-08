@@ -36,18 +36,16 @@ android {
     buildFeatures {
         dataBinding true
     }
-    kapt {
-        javacOptions {
-            // These options are normally set automatically via the Hilt Gradle plugin, but we
-            // set them manually to workaround a bug in the Kotlin 1.5.20
-            option("-Adagger.fastInit=ENABLED")
-            option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
-        }
+}
+kapt {
+    javacOptions {
+        // These options are normally set automatically via the Hilt Gradle plugin, but we
+        // set them manually to workaround a bug in the Kotlin 1.5.20
+        option("-Adagger.fastInit=ENABLED")
+        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
     }
 }
-
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
@@ -78,8 +76,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
 
     //Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
 
     //Gson
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -92,4 +90,10 @@ dependencies {
 
     //Slider view
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
+
+    //Calligraphy
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
+    //RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.3.0"
 }
