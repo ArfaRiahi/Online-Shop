@@ -30,6 +30,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_recyclerListFragment"
+            app:destination="@id/recyclerListFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -83,5 +86,16 @@
         <argument
             android:name="item_id"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/recyclerListFragment"
+        android:name="com.example.digikala.ui.fragments.recyclerLists.RecyclerListFragment"
+        android:label="RecyclerListFragment" >
+        <argument
+            android:name="recyclerType"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_recyclerListFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>
