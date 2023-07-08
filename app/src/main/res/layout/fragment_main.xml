@@ -106,6 +106,7 @@
                         android:layout_height="match_parent"
                         android:background="#5C5B5B">
 
+
                         <TextView
                             android:id="@+id/tv_newest"
                             android:layout_width="wrap_content"
@@ -125,6 +126,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"
+                            android:layoutDirection="rtl"
                             android:orientation="horizontal"
                             android:padding="5dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -172,6 +174,7 @@
                             android:id="@+id/recycler_most_viewed"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layoutDirection="rtl"
                             android:orientation="horizontal"
                             android:padding="5dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -218,6 +221,7 @@
                             android:id="@+id/recycler_top_rated"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layoutDirection="rtl"
                             android:orientation="horizontal"
                             android:padding="5dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
