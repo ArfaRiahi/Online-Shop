@@ -1,5 +1,7 @@
 package com.example.digikala.ui.fragments.main
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
@@ -8,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ConcatAdapter
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentMainBinding
 import com.example.digikala.util.Resources
@@ -27,6 +30,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var sliderAdapter: SliderAdapterDashboard
     private val viewModel: MainFragmentViewModel by viewModels()
     private lateinit var adapterNewest: MainRecyclersAdapter
+    private lateinit var headerAdapter: RecyclerHeaderAdapter
     private lateinit var adapterMostVisited: MainRecyclersAdapter
     private lateinit var adapterTopRated: MainRecyclersAdapter
     private lateinit var adapterSearch: RecyclerSearchAdapter
@@ -111,28 +115,42 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         adapterSearch = RecyclerSearchAdapter(onClick = {
             navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
         })
+
         binding.recyclerSearchResult.adapter = adapterSearch
     }
 
     private fun createNewestAdapter() {
+        headerAdapter = RecyclerHeaderAdapter(onClick = {
+            navController.navigate(MainFragmentDirections.actionMainFragmentToRecyclerListFragment("newest"))
+        })
         adapterNewest = MainRecyclersAdapter(onClick = {
             navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
+
         })
-        binding.recyclerNewest.adapter = adapterNewest
+        val concatAdapter = ConcatAdapter(headerAdapter, adapterNewest)
+        binding.recyclerNewest.adapter = concatAdapter
     }
 
     private fun createMostVisitedAdapter() {
+        headerAdapter = RecyclerHeaderAdapter(onClick = {
+            navController.navigate(MainFragmentDirections.actionMainFragmentToRecyclerListFragment("most"))
+        })
         adapterMostVisited = MainRecyclersAdapter(onClick = {
             navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
         })
-        binding.recyclerMostViewed.adapter = adapterMostVisited
+        val concatAdapter = ConcatAdapter(headerAdapter, adapterMostVisited)
+        binding.recyclerMostViewed.adapter = concatAdapter
     }
 
     private fun createTopRatedAdapter() {
+        headerAdapter = RecyclerHeaderAdapter(onClick = {
+            navController.navigate(MainFragmentDirections.actionMainFragmentToRecyclerListFragment("top"))
+        })
         adapterTopRated = MainRecyclersAdapter(onClick = {
             navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
         })
-        binding.recyclerTopRated.adapter = adapterTopRated
+        val concatAdapter = ConcatAdapter(headerAdapter, adapterTopRated)
+        binding.recyclerTopRated.adapter = concatAdapter
     }
 
     private fun observer() {
@@ -284,4 +302,11 @@ private fun getSearchSort(id: Int): String {
         R.id.radio_price_des -> "d"
         else -> ""
     }
+}
+
+fun isOnline(context: Context): Boolean {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+    return capabilities != null
 }
