@@ -1,5 +1,6 @@
 package com.example.digikala.ui.fragments.main
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -42,11 +43,7 @@ class MainRecyclersAdapter(
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): MainRecyclersAdapter.MyViewHolder {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             RecyclerItemsDashboardBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -56,18 +53,18 @@ class MainRecyclersAdapter(
         )
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: MainRecyclersAdapter.MyViewHolder, position: Int) {
         val item: ProductsResponseItem = getItem(position)
         holder.apply {
             binding.recyclerItemsTvTitle.text = item.name
-            Glide.with(binding.root)
-                .load(item.images[0].src)
-                .into(binding.recyclerItemsIv)
+            item.images.let {
+                if (it.isNotEmpty()) {
+                    Glide.with(binding.root)
+                        .load(item.images[0].src)
+                        .into(binding.recyclerItemsIv)
+                }
+            }
         }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 1) 1
-        else 2
     }
 }
