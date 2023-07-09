@@ -11,14 +11,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+            android:layout_marginTop="170dp"
+            android:id="@+id/iv_no_net"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Internet"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/no_net"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="fitXY"
+            />
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/tv_no_net_oops"
+            app:layout_constraintTop_toBottomOf="@id/iv_no_net"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Ooops!"
+            android:fontFamily="@font/iran_yekan_mobile_extra_black"
+            android:textSize="20sp"
+            />
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/tv_no_net_oops"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:text="هیچ شبکه اینترنتی پیدا نشد \n لطفا اتصال اینترنت خود را چک کنید"
+            android:fontFamily="@font/iran_yekan_mobile_bold"
+            />
+
+        <Button
+            android:fontFamily="@font/iran_yekan_mobile_black"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="تلاش مجدد"
+            android:id="@+id/btn_no_net"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

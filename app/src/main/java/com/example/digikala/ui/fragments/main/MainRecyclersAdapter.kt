@@ -45,10 +45,7 @@ class MainRecyclersAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            RecyclerItemsDashboardBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+            RecyclerItemsDashboardBinding.inflate(LayoutInflater.from(parent.context), parent, false
             )
         )
     }

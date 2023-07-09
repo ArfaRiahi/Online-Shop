@@ -32,6 +32,15 @@ class MainActivity : AppCompatActivity() {
         else {
             bindingInternetBinding =
                 DataBindingUtil.setContentView(this, R.layout.layout_no_internet)
+            bindingInternetBinding.btnNoNet.setOnClickListener {
+                if (isOnline(this)) {
+                    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+                    transparentStatusBar()
+                    setBottomNavigation()
+                } else {
+                    Toast.makeText(this, "اتصال اینترنت برقرار نشد", Toast.LENGTH_SHORT).show()
+                }
+            }
             return
         }
 
@@ -40,18 +49,16 @@ class MainActivity : AppCompatActivity() {
                 NetworkStatus.Available -> Toast.makeText(this, "Network OK!", Toast.LENGTH_LONG)
                     .show()
 
-                NetworkStatus.Unavailable -> Toast.makeText(this, "Network Lost", Toast.LENGTH_LONG)
-                    .show()
+                NetworkStatus.Unavailable -> {
+                }
             }
         }
         transparentStatusBar()
         setBottomNavigation()
     }
 
-
     private fun setBottomNavigation() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
         bottomNavigationView = binding.bottomNavigationView
         NavigationUI.setupWithNavController(bottomNavigationView, navController)

@@ -5,11 +5,15 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentMainBinding
@@ -40,9 +44,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
+        navController = findNavController()
         observer()
         setUi()
-        navController = Navigation.findNavController(view)
         var job: Job? = null
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -113,19 +117,33 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun createSearchAdapter() {
         adapterSearch = RecyclerSearchAdapter(onClick = {
-            navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
+            if (isOnline(requireContext())) {
+                navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
+            } else {
+                noNetToast(requireContext())
+            }
         })
-
         binding.recyclerSearchResult.adapter = adapterSearch
     }
 
     private fun createNewestAdapter() {
         headerAdapter = RecyclerHeaderAdapter(onClick = {
-            navController.navigate(MainFragmentDirections.actionMainFragmentToRecyclerListFragment("newest"))
+            if (isOnline(requireContext())) {
+                navController.navigate(
+                    MainFragmentDirections.actionMainFragmentToRecyclerListFragment(
+                        "newest"
+                    )
+                )
+            } else {
+                noNetToast(requireContext())
+            }
         })
         adapterNewest = MainRecyclersAdapter(onClick = {
-            navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
-
+            if (isOnline(requireContext())) {
+                navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
+            } else {
+                noNetToast(requireContext())
+            }
         })
         val concatAdapter = ConcatAdapter(headerAdapter, adapterNewest)
         binding.recyclerNewest.adapter = concatAdapter
@@ -133,10 +151,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun createMostVisitedAdapter() {
         headerAdapter = RecyclerHeaderAdapter(onClick = {
-            navController.navigate(MainFragmentDirections.actionMainFragmentToRecyclerListFragment("most"))
+            if (isOnline(requireContext())) {
+                navController.navigate(
+                    MainFragmentDirections.actionMainFragmentToRecyclerListFragment(
+                        "most"
+                    )
+                )
+            } else {
+                noNetToast(requireContext())
+            }
         })
         adapterMostVisited = MainRecyclersAdapter(onClick = {
-            navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
+            if (isOnline(requireContext())) {
+                navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
+            } else {
+                noNetToast(requireContext())
+            }
         })
         val concatAdapter = ConcatAdapter(headerAdapter, adapterMostVisited)
         binding.recyclerMostViewed.adapter = concatAdapter
@@ -144,142 +174,180 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun createTopRatedAdapter() {
         headerAdapter = RecyclerHeaderAdapter(onClick = {
-            navController.navigate(MainFragmentDirections.actionMainFragmentToRecyclerListFragment("top"))
+            if (isOnline(requireContext())) {
+                navController.navigate(
+                    MainFragmentDirections.actionMainFragmentToRecyclerListFragment(
+                        "top"
+                    )
+                )
+            } else {
+                noNetToast(requireContext())
+            }
         })
         adapterTopRated = MainRecyclersAdapter(onClick = {
-            navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
+            if (isOnline(requireContext())) {
+                navController.navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(it))
+            } else {
+                noNetToast(requireContext())
+            }
         })
         val concatAdapter = ConcatAdapter(headerAdapter, adapterTopRated)
         binding.recyclerTopRated.adapter = concatAdapter
     }
 
     private fun observer() {
-        viewModel.searchedProductPrice.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resources.Success -> {
-                    response.data?.let {
-                        binding.progressSearch.visibility = View.INVISIBLE
-                        binding.categorySearch.visibility = View.VISIBLE
-                        binding.recyclerSearchResult.visibility = View.VISIBLE
-                        adapterSearch.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.searchedProductPrice.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is Resources.Error -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "اتصال اینترنت را چک کنید",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+
+                        is Resources.Success -> {
+                            response.data?.let {
+                                binding.progressSearch.visibility = View.INVISIBLE
+                                binding.categorySearch.visibility = View.VISIBLE
+                                binding.recyclerSearchResult.visibility = View.VISIBLE
+                                adapterSearch.submitList(it)
+                            }
+                        }
+
+                        is Resources.Loading -> {
+                            binding.progressSearch.visibility = View.VISIBLE
+                        }
                     }
                 }
+                viewModel.searchedProduct.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is Resources.Error -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "اتصال اینترنت را چک کنید",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
 
-                is Resources.Error -> {
+                        is Resources.Success -> {
+                            response.data?.let {
+                                binding.progressSearch.visibility = View.INVISIBLE
+                                binding.categorySearch.visibility = View.VISIBLE
+                                binding.recyclerSearchResult.visibility = View.VISIBLE
+                                adapterSearch.submitList(it)
+                            }
+                        }
 
-                }
-
-                is Resources.Loading -> {
-                    binding.progressSearch.visibility = View.VISIBLE
-                }
-            }
-        }
-        viewModel.searchedProduct.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resources.Success -> {
-                    response.data?.let {
-                        binding.progressSearch.visibility = View.INVISIBLE
-                        binding.categorySearch.visibility = View.VISIBLE
-                        binding.recyclerSearchResult.visibility = View.VISIBLE
-                        adapterSearch.submitList(it)
+                        is Resources.Loading -> {
+                            binding.progressSearch.visibility = View.VISIBLE
+                        }
                     }
                 }
+                viewModel.newestProduct.observe(viewLifecycleOwner) { response ->
+                    when (response) {
 
-                is Resources.Error -> {
+                        is Resources.Error -> {
+                            hideProgressBar(binding.progressRecyclerNewest)
+                            Toast.makeText(
+                                requireContext(),
+                                "اتصال اینترنت را چک کنید",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
 
-                }
+                        is Resources.Success -> {
+                            hideProgressBar(binding.progressRecyclerNewest)
+                            response.data?.let {
+                                adapterNewest.submitList(it)
+                            }
+                        }
 
-                is Resources.Loading -> {
-                    binding.progressSearch.visibility = View.VISIBLE
-                }
-            }
-
-        }
-        viewModel.newestProduct.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resources.Success -> {
-                    hideProgressBar(binding.progressRecyclerNewest)
-                    response.data?.let {
-                        adapterNewest.submitList(it)
-                    }
-                }
-
-                is Resources.Error -> {
-                    hideProgressBar(binding.progressRecyclerNewest)
-                    response.message?.let {
-
-                    }
-                }
-
-                is Resources.Loading -> {
-                    showProgressBar(binding.progressRecyclerNewest)
-                }
-            }
-
-        }
-        viewModel.mostVisitedProduct.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resources.Success -> {
-                    hideProgressBar(binding.progressRecyclerMostViewed)
-                    response.data?.let {
-                        adapterMostVisited.submitList(it)
-                    }
-                }
-
-                is Resources.Error -> {
-                    hideProgressBar(binding.progressRecyclerMostViewed)
-                    response.message?.let {
-
-                    }
-                }
-
-                is Resources.Loading -> {
-                    showProgressBar(binding.progressRecyclerMostViewed)
-                }
-            }
-        }
-        viewModel.topRatedProduct.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resources.Success -> {
-                    hideProgressBar(binding.progressRecyclerTopRated)
-                    response.data?.let {
-                        adapterTopRated.submitList(it)
-                    }
-                }
-
-                is Resources.Error -> {
-                    hideProgressBar(binding.progressRecyclerTopRated)
-                    response.message?.let {
-
-                    }
-                }
-
-                is Resources.Loading -> {
-                    showProgressBar(binding.progressRecyclerTopRated)
-                }
-            }
-        }
-        viewModel.sliderProduct.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resources.Success -> {
-                    hideProgressBar(binding.progressSliderDashboard)
-                    response.data?.let {
-                        for (i in 0 until it.size) {
-                            imageUrl.add(it[i].images[0].src.toString())
-                            sliderAdapter.notifyDataSetChanged()
+                        is Resources.Loading -> {
+                            showProgressBar(binding.progressRecyclerNewest)
                         }
                     }
                 }
 
-                is Resources.Error -> {
-                    hideProgressBar(binding.progressSliderDashboard)
-                    response.message?.let {
+                viewModel.mostVisitedProduct.observe(viewLifecycleOwner) { response ->
+                    when (response) {
 
+                        is Resources.Error -> {
+                            hideProgressBar(binding.progressRecyclerMostViewed)
+                            Toast.makeText(
+                                requireContext(),
+                                "اتصال اینترنت را چک کنید",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        is Resources.Success -> {
+                            hideProgressBar(binding.progressRecyclerMostViewed)
+                            response.data?.let {
+                                adapterMostVisited.submitList(it)
+                            }
+                        }
+
+                        is Resources.Loading -> {
+                            showProgressBar(binding.progressRecyclerMostViewed)
+                        }
                     }
                 }
 
-                is Resources.Loading -> {
-                    showProgressBar(binding.progressSliderDashboard)
+                viewModel.topRatedProduct.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is Resources.Error -> {
+                            hideProgressBar(binding.progressRecyclerTopRated)
+                            Toast.makeText(
+                                requireContext(),
+                                "اتصال اینترنت را چک کنید",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        is Resources.Success -> {
+                            hideProgressBar(binding.progressRecyclerTopRated)
+                            response.data?.let {
+                                adapterTopRated.submitList(it)
+                            }
+                        }
+
+                        is Resources.Loading -> {
+                            showProgressBar(binding.progressRecyclerTopRated)
+                        }
+                    }
+                }
+                viewModel.sliderProduct.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is Resources.Error -> {
+                            hideProgressBar(binding.progressSliderDashboard)
+                            Toast.makeText(
+                                requireContext(),
+                                "اتصال اینترنت را چک کنید",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+
+                        is Resources.Success -> {
+                            hideProgressBar(binding.progressSliderDashboard)
+                            response.data?.let {
+                                for (i in 0 until it.size) {
+                                    imageUrl.add(it[i].images[0].src.toString())
+                                    sliderAdapter.notifyDataSetChanged()
+                                }
+                            }
+                        }
+
+                        is Resources.Loading -> {
+                            showProgressBar(binding.progressSliderDashboard)
+                        }
+                    }
                 }
             }
         }
@@ -309,4 +377,8 @@ fun isOnline(context: Context): Boolean {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
     return capabilities != null
+}
+
+private fun noNetToast(context: Context) {
+    Toast.makeText(context, "اتصال اینترنت را چک کنید", Toast.LENGTH_SHORT).show()
 }

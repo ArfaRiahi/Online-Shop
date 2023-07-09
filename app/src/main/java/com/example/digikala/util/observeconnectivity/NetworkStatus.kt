@@ -18,15 +18,15 @@ sealed class NetworkStatus {
     object Unavailable : NetworkStatus()
 }
 
-class NetworkStatusHelper(private val context: Context) : LiveData<NetworkStatus>() {
+class NetworkStatusHelper(context: Context) : LiveData<NetworkStatus>() {
 
-    val validNetworkConnections : ArrayList<Network> = ArrayList()
+    val validNetworkConnections: ArrayList<Network> = ArrayList()
     var connectivityManager: ConnectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private lateinit var connectivityManagerCallback: ConnectivityManager.NetworkCallback
 
-    fun announceStatus(){
-        if (validNetworkConnections.isNotEmpty()){
+    fun announceStatus() {
+        if (validNetworkConnections.isNotEmpty()) {
             postValue(NetworkStatus.Available)
         } else {
             postValue(NetworkStatus.Unavailable)
@@ -34,12 +34,14 @@ class NetworkStatusHelper(private val context: Context) : LiveData<NetworkStatus
     }
 
     private fun getConnectivityManagerCallback() =
-        object : ConnectivityManager.NetworkCallback(){
+        object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
                 val networkCapability = connectivityManager.getNetworkCapabilities(network)
-                val hasNetworkConnection = networkCapability?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)?:false
-                if (hasNetworkConnection){
+                val hasNetworkConnection =
+                    networkCapability?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                        ?: false
+                if (hasNetworkConnection) {
                     determineInternetAccess(network)
                 }
             }
@@ -50,9 +52,12 @@ class NetworkStatusHelper(private val context: Context) : LiveData<NetworkStatus
                 announceStatus()
             }
 
-            override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+            override fun onCapabilitiesChanged(
+                network: Network,
+                networkCapabilities: NetworkCapabilities
+            ) {
                 super.onCapabilitiesChanged(network, networkCapabilities)
-                if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)){
+                if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
                     determineInternetAccess(network)
                 } else {
                     validNetworkConnections.remove(network)
@@ -62,9 +67,9 @@ class NetworkStatusHelper(private val context: Context) : LiveData<NetworkStatus
         }
 
     private fun determineInternetAccess(network: Network) {
-        CoroutineScope(Dispatchers.IO).launch{
-            if (InternetAvailability.check()){
-                withContext(Dispatchers.Main){
+        CoroutineScope(Dispatchers.IO).launch {
+            if (InternetAvailability.check()) {
+                withContext(Dispatchers.Main) {
                     validNetworkConnections.add(network)
                     announceStatus()
                 }
@@ -91,13 +96,13 @@ class NetworkStatusHelper(private val context: Context) : LiveData<NetworkStatus
 }
 
 object InternetAvailability {
-    fun check() : Boolean {
+    fun check(): Boolean {
         return try {
             val socket = Socket()
-            socket.connect(InetSocketAddress("8.8.8.8",53))
+            socket.connect(InetSocketAddress("8.8.8.8", 53))
             socket.close()
             true
-        } catch ( e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             false
         }
