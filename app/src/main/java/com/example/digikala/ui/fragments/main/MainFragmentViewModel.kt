@@ -15,6 +15,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
+    private val _progressInt = MutableLiveData<Int>()
+    val progressInt: LiveData<Int> = _progressInt
+
     private val _newestProduct = MutableLiveData<Resources<ProductsResponse>>()
     val newestProduct: LiveData<Resources<ProductsResponse>> = _newestProduct
 
@@ -47,6 +50,12 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
         getMostVisitedProducts()
         getTopRatedProducts()
         getSliderProducts()
+        _progressInt.postValue(0)
+    }
+
+    fun increaseProgressInt() {
+        val final = progressInt.value!!.plus(1)
+        _progressInt.postValue(final)
     }
 
     fun setSearchesSort(sortType: String) {

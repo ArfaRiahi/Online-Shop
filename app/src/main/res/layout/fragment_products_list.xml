@@ -10,14 +10,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ProgressBar
+        <com.example.loadinganimation.LoadingAnimation
+            android:visibility="invisible"
             android:id="@+id/progress_product_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:indeterminateTint="?attr/colorSurfaceContainer" />
-
+            android:elevation="10dp"
+            app:barType="@drawable/gear_duo"
+            app:boldText="false"
+            app:enlarge="5"
+            app:textColor="@android:color/holo_purple"
+            app:textSize="15sp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/product_list_recycler"
             android:layout_width="match_parent"
@@ -25,6 +28,5 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:context=".ui.fragments.productsList.ProductsListFragment" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

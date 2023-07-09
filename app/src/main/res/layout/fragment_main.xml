@@ -69,14 +69,6 @@
                     app:layout_constraintBottom_toTopOf="@id/card_newest"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ProgressBar
-                        android:id="@+id/progress_slider_dashboard"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:indeterminateTint="?attr/colorSurfaceContainer" />
-
-
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
@@ -92,6 +84,7 @@
                         app:sliderIndicatorUnselectedColor="#5A5A5A"
                         app:sliderScrollTimeInSec="1" />
                 </androidx.cardview.widget.CardView>
+
                 <!--newest cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_newest"
@@ -132,17 +125,9 @@
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintTop_toBottomOf="@id/tv_newest"
                             tools:listitem="@layout/recycler_items_dashboard" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <ProgressBar
-                        android:id="@+id/progress_recycler_newest"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminateTint="?attr/colorSurfaceContainer"
-                        android:visibility="visible" />
-
                 </androidx.cardview.widget.CardView>
+
                 <!--mostViewed cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_most"
@@ -181,15 +166,8 @@
                             app:layout_constraintTop_toBottomOf="@id/tv_most_viewed"
                             tools:listitem="@layout/recycler_items_dashboard" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <ProgressBar
-                        android:id="@+id/progress_recycler_most_viewed"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminateTint="?attr/colorSurfaceContainer"
-                        android:visibility="visible" />
-
                 </androidx.cardview.widget.CardView>
+
                 <!--topRated cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_top"
@@ -228,19 +206,22 @@
                             app:layout_constraintTop_toBottomOf="@id/tv_top_rated"
                             tools:listitem="@layout/recycler_items_dashboard" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <ProgressBar
-                        android:id="@+id/progress_recycler_top_rated"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminateTint="?attr/colorSurfaceContainer"
-                        android:visibility="visible" />
-
                 </androidx.cardview.widget.CardView>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.core.widget.NestedScrollView>
+
+        <com.example.loadinganimation.LoadingAnimation
+            android:id="@+id/progress_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:elevation="10dp"
+            android:visibility="invisible"
+            app:barType="@drawable/gear_duo"
+            app:boldText="false"
+            app:enlarge="5"
+            app:textColor="@android:color/holo_purple"
+            app:textSize="15sp" />
 
         <!--search sort-->
         <LinearLayout
@@ -307,11 +288,18 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_search" />
-        <ProgressBar
+
+        <com.example.loadinganimation.LoadingAnimation
             android:id="@+id/progress_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible" />
+            android:elevation="10dp"
+            android:visibility="gone"
+            app:barType="@drawable/clock"
+            app:boldText="false"
+            app:enlarge="5"
+            app:textColor="@android:color/holo_purple"
+            app:textSize="15sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

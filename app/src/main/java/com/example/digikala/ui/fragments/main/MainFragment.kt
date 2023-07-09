@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentMainBinding
 import com.example.digikala.util.Resources
+import com.example.loadinganimation.LoadingAnimation
 import com.smarteist.autoimageslider.SliderView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -198,6 +200,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun observer() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.progressInt.observe(viewLifecycleOwner) {
+                    if (it == 3) hideProgressBar(binding.progressDashboard, binding.nestedScroll)
+                }
                 viewModel.searchedProductPrice.observe(viewLifecycleOwner) { response ->
                     when (response) {
                         is Resources.Error -> {
@@ -230,8 +235,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                 requireContext(),
                                 "اتصال اینترنت را چک کنید",
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         }
 
                         is Resources.Success -> {
@@ -250,35 +254,29 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 viewModel.newestProduct.observe(viewLifecycleOwner) { response ->
                     when (response) {
-
                         is Resources.Error -> {
-                            hideProgressBar(binding.progressRecyclerNewest)
                             Toast.makeText(
                                 requireContext(),
                                 "اتصال اینترنت را چک کنید",
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         }
 
                         is Resources.Success -> {
-                            hideProgressBar(binding.progressRecyclerNewest)
+                            viewModel.increaseProgressInt()
                             response.data?.let {
                                 adapterNewest.submitList(it)
                             }
                         }
 
                         is Resources.Loading -> {
-                            showProgressBar(binding.progressRecyclerNewest)
+                            showProgressBar(binding.progressDashboard, binding.nestedScroll)
                         }
                     }
                 }
-
                 viewModel.mostVisitedProduct.observe(viewLifecycleOwner) { response ->
                     when (response) {
-
                         is Resources.Error -> {
-                            hideProgressBar(binding.progressRecyclerMostViewed)
                             Toast.makeText(
                                 requireContext(),
                                 "اتصال اینترنت را چک کنید",
@@ -287,22 +285,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         }
 
                         is Resources.Success -> {
-                            hideProgressBar(binding.progressRecyclerMostViewed)
+                            viewModel.increaseProgressInt()
                             response.data?.let {
                                 adapterMostVisited.submitList(it)
                             }
                         }
 
                         is Resources.Loading -> {
-                            showProgressBar(binding.progressRecyclerMostViewed)
+                            showProgressBar(binding.progressDashboard, binding.nestedScroll)
                         }
                     }
                 }
-
                 viewModel.topRatedProduct.observe(viewLifecycleOwner) { response ->
                     when (response) {
                         is Resources.Error -> {
-                            hideProgressBar(binding.progressRecyclerTopRated)
                             Toast.makeText(
                                 requireContext(),
                                 "اتصال اینترنت را چک کنید",
@@ -311,21 +307,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         }
 
                         is Resources.Success -> {
-                            hideProgressBar(binding.progressRecyclerTopRated)
+                            viewModel.increaseProgressInt()
                             response.data?.let {
                                 adapterTopRated.submitList(it)
                             }
                         }
 
                         is Resources.Loading -> {
-                            showProgressBar(binding.progressRecyclerTopRated)
+                            showProgressBar(binding.progressDashboard, binding.nestedScroll)
                         }
                     }
                 }
                 viewModel.sliderProduct.observe(viewLifecycleOwner) { response ->
                     when (response) {
                         is Resources.Error -> {
-                            hideProgressBar(binding.progressSliderDashboard)
                             Toast.makeText(
                                 requireContext(),
                                 "اتصال اینترنت را چک کنید",
@@ -335,7 +330,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         }
 
                         is Resources.Success -> {
-                            hideProgressBar(binding.progressSliderDashboard)
+                            viewModel.increaseProgressInt()
                             response.data?.let {
                                 for (i in 0 until it.size) {
                                     imageUrl.add(it[i].images[0].src.toString())
@@ -345,7 +340,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         }
 
                         is Resources.Loading -> {
-                            showProgressBar(binding.progressSliderDashboard)
+                            showProgressBar(binding.progressDashboard, binding.nestedScroll)
                         }
                     }
                 }
@@ -354,12 +349,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 }
 
-private fun hideProgressBar(view: View) {
+private fun hideProgressBar(view: View, backLayout: NestedScrollView) {
+    backLayout.visibility = View.VISIBLE
+    view as LoadingAnimation
     view.visibility = View.INVISIBLE
 }
 
-private fun showProgressBar(view: View) {
-    view.visibility = View.VISIBLE
+private fun showProgressBar(view: View, backLayout: NestedScrollView) {
+    val loadingAnim = view as LoadingAnimation
+    backLayout.visibility = View.INVISIBLE
+    loadingAnim.visibility = View.VISIBLE
+    loadingAnim.setEnlarge(5)
 }
 
 private fun getSearchSort(id: Int): String {

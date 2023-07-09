@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentCategoryBinding
 import com.example.digikala.util.Resources
+import com.example.loadinganimation.LoadingAnimation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -70,9 +71,12 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 }
 
 private fun showProgressBar(view: View) {
-    view.visibility = View.VISIBLE
+    val loadingAnim = view as LoadingAnimation
+    loadingAnim.visibility = View.VISIBLE
+    loadingAnim.setEnlarge(5)
 }
 
 private fun hideProgressBar(view: View) {
+    view as LoadingAnimation
     view.visibility = View.INVISIBLE
 }

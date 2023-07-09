@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.digikala.R
 import com.example.digikala.databinding.FragmentProductsListBinding
 import com.example.digikala.util.Resources
+import com.example.loadinganimation.LoadingAnimation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -67,7 +68,9 @@ class ProductsListFragment : Fragment(R.layout.fragment_products_list) {
     }
 
     private fun hideProgressBar() {
-        binding.progressProductList.visibility = View.INVISIBLE
+        val loadingAnim = binding.progressProductList
+        loadingAnim.visibility = View.VISIBLE
+        loadingAnim.setEnlarge(5)
     }
 
     private fun showProgressBar() {
