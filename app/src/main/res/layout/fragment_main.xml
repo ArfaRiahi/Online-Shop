@@ -58,6 +58,7 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="?attr/colorSurfaceContainer">
 
+                <!--slider cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_slider"
                     android:layout_width="match_parent"
@@ -91,7 +92,7 @@
                         app:sliderIndicatorUnselectedColor="#5A5A5A"
                         app:sliderScrollTimeInSec="1" />
                 </androidx.cardview.widget.CardView>
-
+                <!--newest cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_newest"
                     android:layout_width="match_parent"
@@ -106,14 +107,13 @@
                         android:layout_height="match_parent"
                         android:background="#5C5B5B">
 
-
                         <TextView
                             android:id="@+id/tv_newest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top"
                             android:layout_margin="10dp"
-                            android:fontFamily="sans-serif-smallcaps"
+                            android:fontFamily="@font/iran_yekan_mobile_extra_bold"
                             android:text="@string/recycler_newest"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -143,7 +143,7 @@
                         android:visibility="visible" />
 
                 </androidx.cardview.widget.CardView>
-
+                <!--mostViewed cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_most"
                     android:layout_width="match_parent"
@@ -163,7 +163,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:fontFamily="sans-serif-smallcaps"
+                            android:fontFamily="@font/iran_yekan_mobile_extra_bold"
                             android:text="@string/recycler_most_viewed"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -190,7 +190,7 @@
                         android:visibility="visible" />
 
                 </androidx.cardview.widget.CardView>
-
+                <!--topRated cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_top"
                     android:layout_width="match_parent"
@@ -210,7 +210,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:fontFamily="sans-serif-smallcaps"
+                            android:fontFamily="@font/iran_yekan_mobile_extra_bold"
                             android:text="@string/recycler_top_rated"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -237,9 +237,12 @@
                         android:visibility="visible" />
 
                 </androidx.cardview.widget.CardView>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.core.widget.NestedScrollView>
 
+        <!--search sort-->
         <LinearLayout
             android:id="@+id/category_search"
             android:layout_width="match_parent"
@@ -257,31 +260,44 @@
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_top_sell"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:checked="true"
+                    android:fontFamily="@font/iran_yekan_mobile_black"
+                    android:singleLine="true"
                     android:text="@string/radio_top_seller" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_price_asc"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/iran_yekan_mobile_black"
+                    android:singleLine="true"
                     android:text="@string/radio_price_asc" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_price_des"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/iran_yekan_mobile_black"
+                    android:singleLine="true"
                     android:text="@string/radio_price_desc" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_newest"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/iran_yekan_mobile_black"
+                    android:singleLine="true"
                     android:text="@string/radio_newest" />
             </RadioGroup>
         </LinearLayout>
 
+        <!--search result-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_search_result"
             android:layout_width="match_parent"
@@ -291,11 +307,11 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_search" />
-
         <ProgressBar
             android:id="@+id/progress_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="invisible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

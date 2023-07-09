@@ -5,5 +5,6 @@
         <item name="android:textColorHint">@color/searchbar_hint_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:editTextColor">@color/searchbar_text_color</item>
+        <item name="android:fontFamily">@font/iran_yekan_mobile_bold</item>
     </style>
 </resources>

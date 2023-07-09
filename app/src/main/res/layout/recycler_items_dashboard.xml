@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:fontFamily="@font/iran_yekan_mobile_black"
+                android:fontFamily="@font/iran_yekan_mobile_regular"
                 android:maxLines="2"
                 android:padding="5dp"
                 android:textColor="@color/black"

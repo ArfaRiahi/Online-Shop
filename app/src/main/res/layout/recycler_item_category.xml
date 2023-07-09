@@ -19,11 +19,11 @@
 
         <TextView
             android:id="@+id/title_category"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/iran_yekan_mobile_extra_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:layout_marginStart="10dp"
-            android:text="Category" />
+            android:text="دسته بندی" />
     </com.google.android.material.card.MaterialCardView>
 </layout>

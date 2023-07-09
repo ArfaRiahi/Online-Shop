@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/iran_yekan_bold_fa_num"
             android:gravity="right"
             android:text="@string/details_price"
             android:textStyle="bold"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/iran_yekan_mobile_bold"
             android:text="@string/details_name"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/iran_yekan_mobile_regular"
             android:gravity="right"
             android:text="@string/details_description"
             app:layout_constraintEnd_toEndOf="@id/tv_details_name"
@@ -66,6 +66,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_details_name" />
 
         <Button
+            android:fontFamily="@font/iran_yekan_mobile_black"
             android:backgroundTint="@color/black"
             android:layout_margin="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
