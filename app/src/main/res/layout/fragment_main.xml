@@ -58,6 +58,7 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="?attr/colorSurfaceContainer">
 
+                <!--slider cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_slider"
                     android:layout_width="match_parent"
@@ -67,14 +68,6 @@
                     app:cardCornerRadius="20dp"
                     app:layout_constraintBottom_toTopOf="@id/card_newest"
                     app:layout_constraintTop_toTopOf="parent">
-
-                    <ProgressBar
-                        android:id="@+id/progress_slider_dashboard"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:indeterminateTint="?attr/colorSurfaceContainer" />
-
 
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/slider"
@@ -92,6 +85,7 @@
                         app:sliderScrollTimeInSec="1" />
                 </androidx.cardview.widget.CardView>
 
+                <!--newest cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_newest"
                     android:layout_width="match_parent"
@@ -112,7 +106,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="top"
                             android:layout_margin="10dp"
-                            android:fontFamily="sans-serif-smallcaps"
+                            android:fontFamily="@font/iran_yekan_mobile_extra_bold"
                             android:text="@string/recycler_newest"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -125,23 +119,16 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"
+                            android:layoutDirection="rtl"
                             android:orientation="horizontal"
                             android:padding="5dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintTop_toBottomOf="@id/tv_newest"
                             tools:listitem="@layout/recycler_items_dashboard" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <ProgressBar
-                        android:id="@+id/progress_recycler_newest"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminateTint="?attr/colorSurfaceContainer"
-                        android:visibility="visible" />
-
                 </androidx.cardview.widget.CardView>
 
+                <!--mostViewed cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_most"
                     android:layout_width="match_parent"
@@ -161,7 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:fontFamily="sans-serif-smallcaps"
+                            android:fontFamily="@font/iran_yekan_mobile_extra_bold"
                             android:text="@string/recycler_most_viewed"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -172,22 +159,16 @@
                             android:id="@+id/recycler_most_viewed"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layoutDirection="rtl"
                             android:orientation="horizontal"
                             android:padding="5dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintTop_toBottomOf="@id/tv_most_viewed"
                             tools:listitem="@layout/recycler_items_dashboard" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <ProgressBar
-                        android:id="@+id/progress_recycler_most_viewed"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminateTint="?attr/colorSurfaceContainer"
-                        android:visibility="visible" />
-
                 </androidx.cardview.widget.CardView>
 
+                <!--topRated cardView-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_top"
                     android:layout_width="match_parent"
@@ -207,7 +188,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:fontFamily="sans-serif-smallcaps"
+                            android:fontFamily="@font/iran_yekan_mobile_extra_bold"
                             android:text="@string/recycler_top_rated"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -218,24 +199,31 @@
                             android:id="@+id/recycler_top_rated"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layoutDirection="rtl"
                             android:orientation="horizontal"
                             android:padding="5dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintTop_toBottomOf="@id/tv_top_rated"
                             tools:listitem="@layout/recycler_items_dashboard" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <ProgressBar
-                        android:id="@+id/progress_recycler_top_rated"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminateTint="?attr/colorSurfaceContainer"
-                        android:visibility="visible" />
-
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <com.example.loadinganimation.LoadingAnimation
+            android:id="@+id/progress_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:elevation="10dp"
+            android:visibility="invisible"
+            app:barType="@drawable/gear_duo"
+            app:boldText="false"
+            app:enlarge="5"
+            app:textColor="@android:color/holo_purple"
+            app:textSize="15sp" />
+
+        <!--search sort-->
         <LinearLayout
             android:id="@+id/category_search"
             android:layout_width="match_parent"
@@ -253,31 +241,44 @@
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_top_sell"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:checked="true"
+                    android:fontFamily="@font/iran_yekan_mobile_black"
+                    android:singleLine="true"
                     android:text="@string/radio_top_seller" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_price_asc"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/iran_yekan_mobile_black"
+                    android:singleLine="true"
                     android:text="@string/radio_price_asc" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_price_des"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/iran_yekan_mobile_black"
+                    android:singleLine="true"
                     android:text="@string/radio_price_desc" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_newest"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/iran_yekan_mobile_black"
+                    android:singleLine="true"
                     android:text="@string/radio_newest" />
             </RadioGroup>
         </LinearLayout>
 
+        <!--search result-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_search_result"
             android:layout_width="match_parent"
@@ -288,10 +289,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_search" />
 
-        <ProgressBar
+        <com.example.loadinganimation.LoadingAnimation
             android:id="@+id/progress_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible" />
+            android:elevation="10dp"
+            android:visibility="gone"
+            app:barType="@drawable/clock"
+            app:boldText="false"
+            app:enlarge="5"
+            app:textColor="@android:color/holo_purple"
+            app:textSize="15sp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

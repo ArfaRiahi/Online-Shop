@@ -6,19 +6,33 @@
 
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        app:cardCornerRadius="10dp"
-        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_first_newest"
+        android:layout_width="150dp"
+        android:layout_height="250dp"
+        android:layout_margin="5dp"
+        android:backgroundTint="#5C5B5B"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_newest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recycler_newest">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/item_first_newest_iv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/item_first_tv"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Most \n Viewed \n Products"></TextView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/item_first_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/iran_yekan_mobile_extra_bold"
+            android:text="نمایش همه"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

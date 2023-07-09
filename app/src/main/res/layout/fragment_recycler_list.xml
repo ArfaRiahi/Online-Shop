@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,23 +9,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.example.loadinganimation.LoadingAnimation
-            android:visibility="invisible"
-            android:id="@+id/progress_product_list"
+            android:id="@+id/progress_recycler_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="10dp"
-            app:barType="@drawable/gear_duo"
+            app:barType="@drawable/clock"
             app:boldText="false"
             app:enlarge="5"
             app:textColor="@android:color/holo_purple"
             app:textSize="15sp" />
+
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/product_list_recycler"
+            android:id="@+id/recycler_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:context=".ui.fragments.productsList.ProductsListFragment" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

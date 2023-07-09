@@ -15,6 +15,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
+    private val _progressInt = MutableLiveData<Int>()
+    val progressInt: LiveData<Int> = _progressInt
+
     private val _newestProduct = MutableLiveData<Resources<ProductsResponse>>()
     val newestProduct: LiveData<Resources<ProductsResponse>> = _newestProduct
 
@@ -47,11 +50,18 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
         getMostVisitedProducts()
         getTopRatedProducts()
         getSliderProducts()
+        _progressInt.postValue(0)
     }
 
-    fun setSearchesSort(sortType : String){
+    fun increaseProgressInt() {
+        val final = progressInt.value!!.plus(1)
+        _progressInt.postValue(final)
+    }
+
+    fun setSearchesSort(sortType: String) {
         _searchedSort.value = sortType
     }
+
     private fun getNewestProducts() {
         viewModelScope.launch {
             _newestProduct.postValue(Resources.Loading())
@@ -84,15 +94,15 @@ class MainFragmentViewModel @Inject constructor(private val repository: Reposito
         }
     }
 
-    fun getSearchProduct(searchQuery: String,orderBy: String) {
+    fun getSearchProduct(searchQuery: String, orderBy: String) {
         viewModelScope.launch {
             _searchedProduct.postValue(Resources.Loading())
-            val response = repository.getSearchedProduct(searchQuery,orderBy)
+            val response = repository.getSearchedProduct(searchQuery, orderBy)
             _searchedProduct.postValue(handleSearchResponse(response))
         }
     }
 
-    fun getSearchProductPrice(searchQuery: String){
+    fun getSearchProductPrice(searchQuery: String) {
         viewModelScope.launch {
             _searchedProductPrice.postValue(Resources.Loading())
             val response = repository.getSearchedProductPrice(searchQuery)

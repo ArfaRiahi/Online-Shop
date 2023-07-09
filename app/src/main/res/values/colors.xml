@@ -6,4 +6,7 @@
     <!-- search bar colors-->
     <color name="searchbar_text_color">@color/black</color>
     <color name="searchbar_hint_color">@color/cardview_dark_background</color>
+
+    <color name="dashboard_card_background">#5C5B5B</color>
+    <color name="main_background">?attr/colorSurfaceContainer</color>
 </resources>

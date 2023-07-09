@@ -1,4 +1,4 @@
-package com.example.digikala.ui.fragments.productsList
+package com.example.digikala.ui.fragments.recyclerLists
 
 import android.os.Bundle
 import android.view.View
@@ -9,19 +9,19 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.digikala.R
-import com.example.digikala.databinding.FragmentProductsListBinding
+import com.example.digikala.databinding.FragmentRecyclerListBinding
 import com.example.digikala.util.Resources
-import com.example.loadinganimation.LoadingAnimation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductsListFragment : Fragment(R.layout.fragment_products_list) {
+class RecyclerListFragment : Fragment(R.layout.fragment_recycler_list) {
 
-    private lateinit var binding: FragmentProductsListBinding
-    private val viewModel: ProductListFragmentViewModel by viewModels()
-    private val args: ProductsListFragmentArgs by navArgs()
+    private lateinit var binding: FragmentRecyclerListBinding
+    private val viewModel: RecyclerListViewModel by viewModels()
+    private val args: RecyclerListFragmentArgs by navArgs()
     private lateinit var navController: NavController
-    private lateinit var productsAdapter: ProductListFragmentRecyclerAdapter
+    private lateinit var recyclerAdapter: RecyclerListAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
@@ -32,25 +32,22 @@ class ProductsListFragment : Fragment(R.layout.fragment_products_list) {
     }
 
     private fun setUi() {
-        productsAdapter = ProductListFragmentRecyclerAdapter {
-            val id = productsAdapter.currentList[it].id
+        recyclerAdapter = RecyclerListAdapter {
+            val id = recyclerAdapter.currentList[it].id
             navController.navigate(
-                ProductsListFragmentDirections.actionProductsListFragmentToDetailsFragment(
-                    id
-                )
+                RecyclerListFragmentDirections.actionRecyclerListFragmentToDetailsFragment(id)
             )
         }
-        binding.productListRecycler.adapter = productsAdapter
+        binding.recyclerList.adapter = recyclerAdapter
     }
 
     private fun observer() {
-        viewModel.getCProductList(args.productId)
+        viewModel.getProductList(args.recyclerType)
         viewModel.productsList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resources.Success -> {
                     hideProgressBar()
-                    productsAdapter.submitList(response.data)
-
+                    recyclerAdapter.submitList(response.data)
                 }
 
                 is Resources.Error -> {
@@ -68,12 +65,10 @@ class ProductsListFragment : Fragment(R.layout.fragment_products_list) {
     }
 
     private fun hideProgressBar() {
-        val loadingAnim = binding.progressProductList
-        loadingAnim.visibility = View.VISIBLE
-        loadingAnim.setEnlarge(5)
+        binding.progressRecyclerList.visibility = View.INVISIBLE
     }
 
     private fun showProgressBar() {
-        binding.progressProductList.visibility = View.VISIBLE
+        binding.progressRecyclerList.visibility = View.VISIBLE
     }
 }

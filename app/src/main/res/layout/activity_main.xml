@@ -10,28 +10,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorSurfaceContainer"
         tools:context=".ui.MainActivity">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/bottomNavigationViewCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="50dp"
             app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             tools:targetApi="s">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
+                style="@style/Widget.BottomNavigationView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
-                android:background="?attr/colorSurfaceContainer"
+                android:background="@android:color/transparent"
+                app:itemTextAppearanceActive="@style/Widget.BottomNavigationView"
+                app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView"
                 app:menu="@menu/dashboard_bottom_nav" />
         </com.google.android.material.card.MaterialCardView>
 
