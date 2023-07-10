@@ -33,7 +33,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         navController = findNavController()
         setUi()
 
-        binding.btnAddCart.setOnClickListener{
+        binding.btnAddCart.setOnClickListener {
             val id = args.detailsItem
             navController.navigate(DetailsFragmentDirections.actionDetailsFragmentToCartFragment(id))
         }
@@ -80,7 +80,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                         //      showProgressBar()
                     }
                 }
-
             }
         }
     }

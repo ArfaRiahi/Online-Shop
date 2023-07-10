@@ -21,7 +21,7 @@
     <string name="radio_top_seller">پر فروش ترین ها</string>
     <string name="radio_price_asc">قیمت صعودی</string>
     <string name="radio_price_desc">قیمت نزولی</string>
-    <string name="radio_newest">حدیدترین ها</string>
+    <string name="radio_newest">جدیدترین ها</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

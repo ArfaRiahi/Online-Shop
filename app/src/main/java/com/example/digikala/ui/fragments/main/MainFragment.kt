@@ -91,7 +91,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-
+                if (query != null) {
+                    if (query.isNotEmpty()) {
+                        navController.navigate(
+                            MainFragmentDirections.actionMainFragmentToSearchFragment(
+                                query
+                            )
+                        )
+                        binding.searchView.setQuery("", true)
+                    }
+                }
                 return false
             }
 
@@ -219,12 +228,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                 binding.progressSearch.visibility = View.INVISIBLE
                                 binding.categorySearch.visibility = View.VISIBLE
                                 binding.recyclerSearchResult.visibility = View.VISIBLE
+                                binding.nestedScroll.visibility = View.VISIBLE
                                 adapterSearch.submitList(it)
                             }
+                            Toast.makeText(
+                                requireContext(),
+                                "کالای مورد نظر یافت نشد",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
                         is Resources.Loading -> {
                             binding.progressSearch.visibility = View.VISIBLE
+                            binding.nestedScroll.visibility = View.INVISIBLE
                         }
                     }
                 }
@@ -243,12 +259,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                 binding.progressSearch.visibility = View.INVISIBLE
                                 binding.categorySearch.visibility = View.VISIBLE
                                 binding.recyclerSearchResult.visibility = View.VISIBLE
+                                binding.nestedScroll.visibility = View.VISIBLE
                                 adapterSearch.submitList(it)
                             }
+                            Toast.makeText(
+                                requireContext(),
+                                "کالای مورد نظر یافت نشد",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
                         is Resources.Loading -> {
                             binding.progressSearch.visibility = View.VISIBLE
+                            binding.nestedScroll.visibility = View.INVISIBLE
                         }
                     }
                 }
@@ -372,7 +395,7 @@ private fun getSearchSort(id: Int): String {
     }
 }
 
-fun isOnline(context: Context): Boolean {
+private fun isOnline(context: Context): Boolean {
     val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
