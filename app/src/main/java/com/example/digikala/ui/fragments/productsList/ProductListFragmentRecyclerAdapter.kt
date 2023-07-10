@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.digikala.data.models.products.ProductsResponseItem
-import com.example.digikala.databinding.RecyclerProductsItemBinding
+import com.example.digikala.databinding.RecyclerItemProductsBinding
 
 class ProductListFragmentRecyclerAdapter(
     private val onClick: (Int) -> Unit
@@ -32,7 +32,7 @@ class ProductListFragmentRecyclerAdapter(
         }
     }
 
-    inner class MyViewHolder(val binding: RecyclerProductsItemBinding) :
+    inner class MyViewHolder(val binding: RecyclerItemProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.apply {
@@ -48,7 +48,7 @@ class ProductListFragmentRecyclerAdapter(
         viewType: Int
     ): ProductListFragmentRecyclerAdapter.MyViewHolder {
         return MyViewHolder(
-            RecyclerProductsItemBinding.inflate(
+            RecyclerItemProductsBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

@@ -1,9 +1,16 @@
 package com.example.digikala.data.remote
 
 import com.example.digikala.data.models.category.CategoryResponse
+import com.example.digikala.data.models.customer.CustomerDto
+import com.example.digikala.data.models.order.OrderDto
 import com.example.digikala.data.models.products.ProductsResponse
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ProductsApiService {
@@ -65,4 +72,30 @@ interface ProductsApiService {
     suspend fun getAllSearchProductPrice(
         @Query("search") search: String,
     ): Response<ProductsResponse>
+
+    @POST("customers")
+    @Headers("Content-Type: application/json")
+    suspend fun createCustomer(@Body customerDto: CustomerDto): Response<CustomerDto>
+
+    @GET("customers")
+    suspend fun getCustomersByEmail(@Query("email") email: String): Response<List<CustomerDto>>
+
+    @POST("orders")
+    suspend fun createOrders(@Body orderDto: OrderDto): Response<OrderDto>
+
+    @GET("orders")
+    suspend fun getOrdersByEmail(
+        @Query("search") searchEmail: String,
+        @Query("status") status: String = "processing",
+        @Query("orderby") orderby: String = "date",
+    ): Response<List<OrderDto>>
+
+    @PUT("orders/{id}")
+    suspend fun putUpdateOrder(
+        @Path("id") id: Int,
+        @Body customerOrder: OrderDto
+    ): Response<OrderDto>
+
+    @GET("orders/{id}")
+    suspend fun getOrderById(@Path("id") id: Int): Response<OrderDto>
 }

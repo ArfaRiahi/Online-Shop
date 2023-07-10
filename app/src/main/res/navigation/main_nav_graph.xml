@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -85,7 +88,7 @@
         android:id="@+id/cartFragment"
         android:name="com.example.digikala.ui.fragments.cart.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" >
+        tools:layout="@layout/fragment_cart">
         <argument
             android:name="item_id"
             app:argType="integer" />
@@ -93,7 +96,7 @@
     <fragment
         android:id="@+id/recyclerListFragment"
         android:name="com.example.digikala.ui.fragments.recyclerLists.RecyclerListFragment"
-        android:label="RecyclerListFragment" >
+        android:label="RecyclerListFragment">
         <argument
             android:name="recyclerType"
             app:argType="string" />
@@ -105,7 +108,7 @@
         android:id="@+id/searchFragment"
         android:name="com.example.digikala.ui.fragments.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -113,4 +116,8 @@
             android:name="searched_word"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.digikala.ui.fragments.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

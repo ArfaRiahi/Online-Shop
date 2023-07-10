@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <com.example.loadinganimation.LoadingAnimation
+            android:visibility="invisible"
             android:id="@+id/progress_recycler_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -14,7 +14,8 @@ import com.example.loadinganimation.LoadingAnimation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment(R.layout.fragment_category) {
+class
+CategoryFragment : Fragment(R.layout.fragment_category) {
 
     private val viewModel: CategoryFragmentViewModel by viewModels()
     private lateinit var navController: NavController
