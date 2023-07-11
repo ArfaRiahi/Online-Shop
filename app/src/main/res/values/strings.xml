@@ -12,6 +12,7 @@
     <string name="menu_home">خانه</string>
     <string name="menu_categories">دسته‌بندی</string>
     <string name="menu_profile">پروفایل</string>
+    <string name="menu_cart">سبد خرید</string>
 
     <string name="search_hint">جست‌وجو در فروشگاه…</string>
 

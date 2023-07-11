@@ -19,7 +19,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
     private val viewModel: CartViewModel by viewModels()
     private lateinit var navController: NavController
-    private val args: CartFragmentArgs by navArgs()
     private lateinit var binding: FragmentCartBinding
     private lateinit var adapter: CartRecyclerAdapter
 
@@ -55,7 +54,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
 
     private fun setUi() {
-        viewModel.getIdItemsProducts(args.itemId)
         adapter = CartRecyclerAdapter {
 
         }
