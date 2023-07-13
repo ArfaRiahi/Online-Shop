@@ -10,13 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.digikala.R
 import com.example.digikala.databinding.ActivityMainBinding
 import com.example.digikala.databinding.LayoutNoInternetBinding
 import com.example.digikala.util.observeconnectivity.NetworkStatus
 import com.example.digikala.util.observeconnectivity.NetworkStatusHelper
+import com.example.digikala.worker.MyWorker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -50,15 +55,18 @@ class MainActivity : AppCompatActivity() {
                     .show()
 
                 NetworkStatus.Unavailable -> {
+
                 }
             }
         }
         transparentStatusBar()
         setBottomNavigation()
+        createWorkerObjectTest()
     }
 
     private fun setBottomNavigation() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
         bottomNavigationView = binding.bottomNavigationView
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
@@ -74,5 +82,11 @@ class MainActivity : AppCompatActivity() {
         val capabilities =
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return capabilities != null
+    }
+
+    private fun createWorkerObjectTest() {
+        val test = PeriodicWorkRequestBuilder<MyWorker>(15, TimeUnit.MINUTES).build()
+        val workManager = WorkManager.getInstance(applicationContext)
+        workManager.enqueueUniquePeriodicWork("ID", ExistingPeriodicWorkPolicy.KEEP, test)
     }
 }

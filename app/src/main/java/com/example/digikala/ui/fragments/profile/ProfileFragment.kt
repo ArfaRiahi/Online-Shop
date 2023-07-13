@@ -1,10 +1,8 @@
 package com.example.digikala.ui.fragments.profile
 
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -76,8 +74,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                                         getOrders()
                                     }
                                 }
-
-
                             }
                         }
                     }
@@ -93,6 +89,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     when (it) {
                         is Resources.Error -> {
                             errorToast()
+
                         }
 
                         is Resources.Loading -> {
